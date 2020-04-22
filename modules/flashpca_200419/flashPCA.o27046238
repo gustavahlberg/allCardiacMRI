@@ -1,0 +1,13 @@
+[Mon Apr 20 16:53:33 2020] arguments: flashpca flashpca --bfile /home/projects/cu_10039/projects/allCardiacMRI/modules/flashpca_200419/genPCA/ukbMriSubset.maf.hwe.reg.ld --outpc /home/projects/cu_10039/projects/allCardiacMRI/modules/flashpca_200419/results/ukbMriSubset.FlashPca.txt --ndim 20 --outload loadings.txt --outmeansd meansd.txt --standx binom2 --div p --numthreads 8 
+[Mon Apr 20 16:53:33 2020] Start flashpca (version 2.0)
+[Mon Apr 20 16:53:33 2020] seed: 1
+[Mon Apr 20 16:53:33 2020] blocksize: 7276 (2092228352 bytes per block)
+[Mon Apr 20 16:53:33 2020] PCA begin
+[Mon Apr 20 17:59:33 2020] PCA done
+[Mon Apr 20 17:59:33 2020] Writing 20 eigenvalues to file eigenvalues.txt
+[Mon Apr 20 17:59:33 2020] Writing 20 eigenvectors to file eigenvectors.txt
+[Mon Apr 20 17:59:34 2020] Writing 20 PCs to file /home/projects/cu_10039/projects/allCardiacMRI/modules/flashpca_200419/results/ukbMriSubset.FlashPca.txt
+[Mon Apr 20 17:59:34 2020] Writing 20 proportion variance explained to file pve.txt
+[Mon Apr 20 17:59:34 2020] Writing SNP loadings to file loadings.txt
+[Mon Apr 20 17:59:35 2020] Writing mean + sd file meansd.txt
+[Mon Apr 20 17:59:35 2020] Goodbye!

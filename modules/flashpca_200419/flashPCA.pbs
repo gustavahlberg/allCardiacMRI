@@ -1,0 +1,10 @@
+#!/bin/bash
+#PBS group_list=cu_10039 -A cu_10039
+#PBS -m n 
+#PBS -l nodes=1:ppn=10,mem=12gb:fatnode,walltime=42000
+#PBS -N flashPCA
+cd $PBS_O_WORKDIR
+module load plink2/1.90beta3
+
+. flashPCA.sh
+
