@@ -37,7 +37,7 @@ msub -t 0-22 subsetBgen.pbs
 #
 
 
-msub -t 1-22 subsetBgen_2.pbs
+# msub -t 1-22 subsetBgen_2.pbs
 
 
 

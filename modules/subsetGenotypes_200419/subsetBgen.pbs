@@ -1,7 +1,7 @@
 #!/bin/bash
 #PBS group_list=cu_10039 -A cu_10039
 #PBS -m n 
-#PBS -l nodes=1:ppn=2,mem=12gb,walltime=184000
+#PBS -l nodes=1:ppn=2,mem=12gb,walltime=214000
 #PBS -N 
 cd $PBS_O_WORKDIR
 

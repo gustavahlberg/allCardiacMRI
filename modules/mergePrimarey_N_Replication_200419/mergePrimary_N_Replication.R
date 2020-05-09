@@ -11,20 +11,20 @@ sampleData.fn="/home/projects/cu_10039/data/UKBB/Imputed/ukb43247_imp_chr1_v3_s4
 repDIR = '../../../repCardiacMRI/data/'
 priDIR = '../../../cardiacMRI/data/'
 
-repSL.fn = paste0(repDIR, "sampleList.etn_200419.tsv")
-repSample.fn=paste0(repDIR, "ukbCMR.rep.snpTest_200419.sample")
-repPheno.fn=paste0(repDIR, "ukbCMR.rep.boltlmm_200419.sample")
-repExclude.fn=paste0(repDIR, "sample2exclude.rep.snpTest_200419.list")
+repSL.fn = paste0(repDIR, "sampleList.etn_200506.tsv")
+repSample.fn=paste0(repDIR, "ukbCMR.rep.snpTest_200506.sample")
+repPheno.fn=paste0(repDIR, "ukbCMR.rep.boltlmm_200506.sample")
+repExclude.fn=paste0(repDIR, "sample2exclude.rep.snpTest_200506.list")
 
 priSL.fn= paste0(priDIR, "sampleList.etn_200219.tsv")
 priSample.fn=paste0(priDIR,"ukbCMR.snpTest_200316.sample")
 pripheno.fn=paste0(priDIR,"ukbCMR.boltlmm_200316.sample")
 priExclude.fn=paste0(priDIR, "sample2exclude.snpTest_200316.list")
 
-allSL.fn= "../../data/sampleList.all.etn_200419.tsv"
-allSample.fn= "../../data/ukbCMR.all.snpTest_200419.sample"
-allPheno.fn= "../../data/ukbCMR.all.boltlmm_200419.sample"
-allExclude.fn= "../../data/sample2exclude.all.snpTest_200419.list"
+allSL.fn= "../../data/sampleList.all.etn_200506.tsv"
+allSample.fn= "../../data/ukbCMR.all.snpTest_200506.sample"
+allPheno.fn= "../../data/ukbCMR.all.boltlmm_200506.sample"
+allExclude.fn= "../../data/sample2exclude.all.snpTest_200506.list"
 
 # ----------------------------------------------------------------
 #

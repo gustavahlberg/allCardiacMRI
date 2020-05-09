@@ -20,8 +20,8 @@ module load flashpca/2.0
 # IOs
 #
 
-in=$DIR/genPCA/ukbMriSubset.maf.hwe.reg.ld
-out=$DIR/results/ukbMriSubset.FlashPca.txt
+in=$DIR/genPCA/ukbMriSubset.unrel.maf.hwe.reg.ld
+out=$DIR/results/ukbMriSubset.unrel.FlashPca.txt
 
 # -----------------------------------------------------------
 #

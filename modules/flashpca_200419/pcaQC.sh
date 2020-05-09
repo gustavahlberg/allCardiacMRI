@@ -23,26 +23,32 @@ mkdir -p $DIR/intermediate
 data=/home/projects/cu_10039/data/UKBB/Genotype/EGAD00010001497
 ukb=$data/ukb
 ukbSubset=$DIR/../../data/ukbMriSubset
-ukbMaf=$DIR/intermediate/$(basename ${ukbSubset}).maf
+
+
+ukbSubsetRel=$DIR/intermediate/$(basename ${ukbSubset}).rel
+ukbSubsetUnRel=$DIR/intermediate/$(basename ${ukbSubset}).unrel
+
+
+ukbMaf=$DIR/intermediate/$(basename ${ukbSubsetUnRel}).maf
 ukbMafHwe=${ukbMaf}.hwe
 ukbMafHweReg1=${ukbMafHwe}.reg1
 ukbMafHweReg=${ukbMafHwe}.reg
 ukbMafHweRegLd=$DIR/genPCA/$(basename ${ukbMafHweReg}).ld
 ukbMafHweRegLdRnd=${ukbMafHweRegLd}.Rnd
-samples=$DIR/../../data/sampleList.all.etn_200419.tsv
+ukbSubsetRelLd=$DIR/genPCA/$(basename ${ukbSubsetRel}).ld
+
+samples=$DIR/../../data/sampleList.all.etn_200506.tsv
 exlReg=$DIR/exclusion_regions_hg19.txt
+rel4th=$DIR/results/related4_dgrs_200507.txt
 
 
 # -----------------------------------------------------------
 #
-# subset 
+# split -> unrelated, related
 #
 
-plink --bfile $ukb \
-    --keep-fam $samples \
-    --make-bed \
-    --out $ukbSubset
-
+plink --bfile $ukbSubset --remove-fam $rel4th  --make-bed --out $ukbSubsetUnRel
+plink --bfile $ukbSubset --keep-fam $rel4th  --make-bed --out $ukbSubsetRel
 
 
 # -----------------------------------------------------------
@@ -50,11 +56,11 @@ plink --bfile $ukb \
 # Select snps
 #
 # - MAF > 5%
-# - HWE > 1.0e-05
+# - HWE > 1.0e-04
 # - MISSINGNESS < 2%
 # 
 
-plink --bfile $ukbSubset \
+plink --bfile $ukbSubsetUnRel \
     --maf 0.05 \
     --geno 0.02 \
     --autosome \
@@ -77,10 +83,10 @@ plink --bfile $ukbMaf \
 # - no Chr.8 inversion (8:7-13Mb)
 #
 
-Rscript rmRegions.R
+Rscript rmRegions.R ${ukbMafHwe}.bim
 
 plink --bfile $ukbMafHwe \
-    --exclude $DIR/rsId_StrAmbInv8MHC.tsv \
+    --exclude $DIR/rsId_StrAmb.tsv \
     --make-bed \
     --out $ukbMafHweReg1
 
@@ -98,7 +104,7 @@ plink --bfile $ukbMafHweReg1 \
 #
 
 plink --bfile $ukbMafHweReg \
-    --indep-pairwise 1000 50 0.1 \
+    --indep-pairwise 1000 80 0.1 \
     --out trainPrune
 
 plink --bfile $ukbMafHweReg \
@@ -106,13 +112,17 @@ plink --bfile $ukbMafHweReg \
     --make-bed \
     --out $ukbMafHweRegLd
 
-# random trim
-#Rscript randomTrim.R
 
-#plink --bfile $ukbMafHweRegLd \
-#    --extract $DIR/rsId_randTrim.tsv \
-#    --make-bed \
-#    --out $ukbMafHweRegLdRnd
+# -----------------------------------------------------------
+#
+# Related dataset subet SNPs
+#
+
+
+plink --bfile $ukbSubsetRel \
+    --extract trainPrune.prune.in \
+    --make-bed \
+    --out $ukbSubsetRelLd
 
 
 

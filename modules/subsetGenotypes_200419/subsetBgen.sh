@@ -14,7 +14,7 @@ pth="/home/projects/cu_10039/data/UKBB/downloadDump/EGAD00010001474"
 file=${pth}/"ukb_imp_chr"${i}"_v3.bgen"
 rs=${DIR}/rsidIncl/rsIds_chr_${i}.txt
 sampleData="/home/projects/cu_10039/data/UKBB/Imputed/ukb43247_imp_chr1_v3_s487320.sample"
-samples=${DIR}/"../../data/sampleList.all.etn_200419.tsv"
+samples=${DIR}/"../../data/sampleList.all.etn_200506.tsv"
 out=${DIR}/../../data/subsetbgen/subset_ukb_imp_chr${i}_v3.bgen
 
 
@@ -24,7 +24,8 @@ out=${DIR}/../../data/subsetbgen/subset_ukb_imp_chr${i}_v3.bgen
 # rs=testRs
 
 bgenix -g ${file} -incl-rsids ${rs} | \
-    qctool -g - -filetype bgen -s $sampleData -incl-samples $samples -og $out
+    qctool -g - -filetype bgen -s $sampleData \
+    -incl-samples $samples -og $out -bgen-bits 8
 
 
 
