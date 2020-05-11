@@ -12,14 +12,14 @@ repDIR = '../../../repCardiacMRI/data/'
 priDIR = '../../../cardiacMRI/data/'
 
 repSL.fn = paste0(repDIR, "sampleList.etn_200506.tsv")
-repSample.fn=paste0(repDIR, "ukbCMR.rep.snpTest_200506.sample")
-repPheno.fn=paste0(repDIR, "ukbCMR.rep.boltlmm_200506.sample")
-repExclude.fn=paste0(repDIR, "sample2exclude.rep.snpTest_200506.list")
+repSample.fn=paste0(repDIR, "ukbCMR.rep.snpTest_200509.sample")
+repPheno.fn=paste0(repDIR, "ukbCMR.rep.boltlmm_200509.sample")
+repExclude.fn=paste0(repDIR, "sample2exclude.rep.snpTest_200509.list")
 
 priSL.fn= paste0(priDIR, "sampleList.etn_200219.tsv")
-priSample.fn=paste0(priDIR,"ukbCMR.snpTest_200316.sample")
-pripheno.fn=paste0(priDIR,"ukbCMR.boltlmm_200316.sample")
-priExclude.fn=paste0(priDIR, "sample2exclude.snpTest_200316.list")
+priSample.fn=paste0(priDIR,"ukbCMR.snpTest_200509.sample")
+pripheno.fn=paste0(priDIR,"ukbCMR.boltlmm_200509.sample")
+priExclude.fn=paste0(priDIR, "sample2exclude.snpTest_200509.list")
 
 allSL.fn= "../../data/sampleList.all.etn_200506.tsv"
 allSample.fn= "../../data/ukbCMR.all.snpTest_200506.sample"
@@ -52,7 +52,9 @@ write.table(subSampleData$ID_1,
 
 repSample = read.table(repSample.fn, header = T, stringsAsFactors = F)
 priSample = read.table(priSample.fn, header = T, stringsAsFactors = F)
+
 allSample = rbind(repSample,priSample[-1,])
+
 
 rownames(allSample) <- as.character(allSample$ID_1)
 subSampleData = sampleOrg[sampleOrg$ID_1 %in% allSample$ID_1,]

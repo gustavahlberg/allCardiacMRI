@@ -35,3 +35,7 @@ modules/gwas_w_plink_191117/results_septum
 modules/subsetGenotypes_191108/testDir/
 .Rproj.user
 modules/extrct_atrialVol_200225/results/
+modules/h2_bolt_200510/h2results/
+modules/h2_bolt_200510/modelSnps
+ukb43247_cal_chr1_v2_s488288.version.fam
+bolt.in_plink_but_not_imputed.FID_IID.448525.txt

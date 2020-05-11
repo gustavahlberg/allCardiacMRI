@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #PBS group_list=cu_10039 -A cu_10039
 #PBS -m n 
 #PBS -l nodes=1:ppn=10,mem=16gb,walltime=252000
@@ -12,4 +11,4 @@ arr=(lamax lamin lamdv labac lasv laev lapev latef lapef laaef lape_svd expansio
 #arr=(LVM.g WTglb, LVMVR)
 
 N=${arr[${MOAB_JOBARRAYINDEX}]}
-bash gwas_bolt.sh $N
+bash gwas_bolt_nopc.sh $N

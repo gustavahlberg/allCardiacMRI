@@ -26,7 +26,7 @@ pth=/home/projects/cu_10039/data/UKBB/Genotype/EGAD00010001497
 modelSnps=${DIR}/modelSnps_all.txt
 geneticMap=${DIR}/genetic_map_hg19_withX.txt.gz
 bgen=$DIR/../../data/subsetbgen/subset_ukb_imp_chr{1:22}_v3.bgen
-outDir=${DIR}/results/gwas_rtrn
+outDir=${DIR}/results/gwas_rtrn_nopc
 
 
 # ----------------------------------------------------
@@ -48,8 +48,6 @@ bolt \
     --sampleFile $sampleFn \
     --phenoFile $phenoFn \
     --phenoCol=$pheno \
-    --covarFile $covarFn \
-    --qCovarCol=PC{1:10} \
     --lmm \
     --lmmForceNonInf \
     --LDscoresFile=${DIR}/../../data/LDSCORE.1000G_EUR.tab.gz \

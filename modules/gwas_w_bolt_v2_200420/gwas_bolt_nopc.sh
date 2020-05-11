@@ -15,8 +15,6 @@ module load lapack/3.6.0
 module load qctool/2.0.1
 module load bolt-lmm/2.3.4 
 
-
-pheno=$1
 pheno=$1
 sampleFn=${DIR}/../../data/ukbCMR.all.snpTest_200506.sample
 phenoFn=${DIR}/../../data/ukbCMR.all.boltlmm_200506.sample
@@ -26,8 +24,7 @@ pth=/home/projects/cu_10039/data/UKBB/Genotype/EGAD00010001497
 modelSnps=${DIR}/modelSnps_all.txt
 geneticMap=${DIR}/genetic_map_hg19_withX.txt.gz
 bgen=$DIR/../../data/subsetbgen/subset_ukb_imp_chr{1:22}_v3.bgen
-outDir=${DIR}/results/gwas_rtrn
-
+outDir=${DIR}/results/gwas_regular_nopc
 
 # ----------------------------------------------------
 #
@@ -36,6 +33,7 @@ outDir=${DIR}/results/gwas_rtrn
 # bgen=$DIR/../subsetGenotypes_191108/test.bgen
 # pheno=LAV.max.mL
 #
+
 
 bolt \
     --bed ${pth}/ukb_cal_chr{1:22}_v2.bed.gz  \
@@ -49,7 +47,10 @@ bolt \
     --phenoFile $phenoFn \
     --phenoCol=$pheno \
     --covarFile $covarFn \
-    --qCovarCol=PC{1:10} \
+    --covarCol=sex \
+    --covarCol=genotyping.array \
+    --covarCol=imgCenter \
+    --qCovarCol=age \
     --lmm \
     --lmmForceNonInf \
     --LDscoresFile=${DIR}/../../data/LDSCORE.1000G_EUR.tab.gz \
