@@ -1,0 +1,7 @@
+lamin data/lamin.gcta.tsv.gz
+ilamin data/ilamin.gcta.tsv.gz
+lamax data/lamax.gcta.tsv.gz
+ilamax data/ilamax.gcta.tsv.gz
+latef data/latef.gcta.tsv.gz
+laaef data/laaef.gcta.tsv.gz
+lapef data/lapef.gcta.tsv.gz

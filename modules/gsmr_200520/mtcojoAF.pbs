@@ -1,0 +1,9 @@
+#!/bin/bash
+#PBS group_list=cu_10039 -A cu_10039
+#PBS -m n 
+#PBS -l nodes=1:ppn=4,mem=10gb:fatnode,walltime=36000
+#PBS -N mtcojoAF_rntrn
+cd $PBS_O_WORKDIR
+
+module load gcta/1.92.4beta 
+    gcta64 --mbfile gsmr_ref_data.txt         --mtcojo-file mtcojo_summary_data.list_rntrn_latef          --ref-ld-chr eur_w_ld_chr/         --w-ld-chr eur_w_ld_chr/         --out /home/projects/cu_10039/projects/allCardiacMRI/modules/gsmr_200520/mtCojoResults/rntrn_latef_condAF.mtcojoRes

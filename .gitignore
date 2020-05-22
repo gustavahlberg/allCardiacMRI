@@ -39,3 +39,12 @@ modules/h2_bolt_200510/h2results/
 modules/h2_bolt_200510/modelSnps
 ukb43247_cal_chr1_v2_s488288.version.fam
 bolt.in_plink_but_not_imputed.FID_IID.448525.txt
+**/data/*
+**/*.[oe][0-9][0-9]*
+modules/depict_200518/src/*
+modules/depict_200518/results/*
+modules/gsmr_200520/subsetGenotypes/*
+modules/gsmr_200520/mtCojoResults/*
+modules/depict_200518/background/*
+*badsnps
+*pleio_snps

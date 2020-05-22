@@ -1,0 +1,2 @@
+AF data/AF_sumstat.gcta.tsv.gz
+HF data/HF_sumstat.gcta.tsv.gz

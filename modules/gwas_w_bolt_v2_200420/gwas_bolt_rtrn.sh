@@ -50,7 +50,6 @@ bolt \
     --phenoCol=$pheno \
     --covarFile $covarFn \
     --qCovarCol=PC{1:10} \
-    --lmm \
     --lmmForceNonInf \
     --LDscoresFile=${DIR}/../../data/LDSCORE.1000G_EUR.tab.gz \
     --geneticMapFile=$geneticMap \

@@ -1,0 +1,7 @@
+lamin data/lamin.mixed.gcta.tsv.gz
+ilamin data/ilamin.mixed.gcta.tsv.gz
+lamax data/lamax.mixed.gcta.tsv.gz
+ilamax data/ilamax.mixed.gcta.tsv.gz
+latef data/latef.mixed.gcta.tsv.gz
+laaef data/laaef.mixed.gcta.tsv.gz
+lapef data/lapef.mixed.gcta.tsv.gz

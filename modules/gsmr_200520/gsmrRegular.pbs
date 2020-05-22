@@ -1,0 +1,15 @@
+#!/bin/bash
+#PBS group_list=cu_10039 -A cu_10039
+#PBS -m n 
+#PBS -l nodes=1:ppn=4,mem=20gb:fatnode,walltime=36000
+#PBS -N gsmrRegular
+cd $PBS_O_WORKDIR
+
+module load gcta/1.92.4beta 
+gcta64 --mbfile gsmr_ref_data.txt     --gsmr-file LA_exposures.txt outcomes.txt     --gsmr-direction 2     --gwas-thresh 5e-7     --gsmr-snp-min 5     --effect-plot     --out LAMR_regular_5e7
+
+
+gcta64 --mbfile gsmr_ref_data.txt     --gsmr-file LA_exposures.txt outcomes.txt     --gsmr-direction 2     --gwas-thresh 5e-8     --gsmr-snp-min 5     --effect-plot     --out LAMR_regular_5e8
+
+
+

@@ -1,0 +1,5 @@
+AF data/AF_sumstat.gcta.tsv.gz
+HF data/HF_sumstat.gcta.tsv.gz
+AS data/stroke.AS.EUR.gcta.tsv.gz
+AIS data/stroke.AIS.EUR.gcta.tsv.gz
+CES data/stroke.CES.EUR.gcta.tsv.gz

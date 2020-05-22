@@ -1,0 +1,18 @@
+#!/bin/bash
+#PBS group_list=cu_10039 -A cu_10039
+#PBS -m n 
+#PBS -l nodes=1:ppn=4,mem=20gb:fatnode,walltime=36000
+#PBS -N gsmrMixed
+cd $PBS_O_WORKDIR
+
+module load gcta/1.92.4beta 
+
+gcta64 --mbfile gsmr_ref_data.txt     --gsmr-file LA_exposures.mixed.txt outcomes.txt     --gsmr-direction 0     --gwas-thresh 1e-6     --gsmr-snp-min 5     --effect-plot     --out LAMR_mixed
+
+
+gcta64 --mbfile gsmr_ref_data.txt     --gsmr-file LA_exposures.mixed.txt outcomes.txt     --gsmr-direction 2     --gwas-thresh 5e-7     --gsmr-snp-min 5     --effect-plot     --out LAMR_mixed_bidir
+
+
+gcta64 --mbfile gsmr_ref_data.txt     --gsmr-file LA_exposures.mixed.txt outcomes.txt     --gsmr-direction 1     --gwas-thresh 5e-8     --gsmr-snp-min 10     --effect-plot     --out LAMR_mixed_rev
+
+

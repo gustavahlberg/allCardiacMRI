@@ -1,0 +1,7 @@
+lamin data/rntrn_lamin.gcta.tsv.gz
+ilamin data/rntrn_ilamin.gcta.tsv.gz
+lamax data/rntrn_lamax.gcta.tsv.gz
+ilamax data/rntrn_ilamax.gcta.tsv.gz
+latef data/rntrn_latef.gcta.tsv.gz
+laaef data/rntrn_laaef.gcta.tsv.gz
+lapef data/rntrn_lapef.gcta.tsv.gz

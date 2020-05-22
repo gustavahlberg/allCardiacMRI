@@ -1,0 +1,16 @@
+#!/bin/bash
+#PBS group_list=cu_10039 -A cu_10039
+#PBS -m n 
+#PBS -l nodes=1:ppn=8,mem=20gb:fatnode,walltime=72000
+#PBS -N ilamin
+cd $PBS_O_WORKDIR
+
+module unload anaconda3/4.0.0
+module unload gcc/5.4.0
+module load anaconda2/4.0.0
+module load jre/1.8.0
+module load plink2/1.90beta5.4
+module load depict/1_rel194 
+
+python src/python/depict.py ilamin.cfg
+
