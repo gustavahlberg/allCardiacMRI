@@ -1,0 +1,2 @@
+z;ld;snp;config;cred;log;n_samples
+data/rntrn_ilamax_1.chr1.z;ldFiles/rntrn_ilamax_1.chr1.ld;output/rntrn_ilamax_1.chr1.snp;output/rntrn_ilamax_1.chr1.config;output/rntrn_ilamax_1.chr1.cred;output/rntrn_ilamax_1.chr1.log;35648

@@ -9,7 +9,7 @@
 # 3. reformat files for cojo
 # 4. run gsmr
 # 5. run mtcojo
-# 6. run cojo
+# 6. run cojo (see cojo module)
 #
 # -----------------------------------------------------------
 #

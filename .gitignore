@@ -7,6 +7,8 @@ data/*
 **/*.tiff
 **/*gz
 **/*err
+**/*.bim
+**/*.bed
 .DS_Store
 **/*.Rproj
 **/*.RData
@@ -48,3 +50,8 @@ modules/gsmr_200520/mtCojoResults/*
 modules/depict_200518/background/*
 *badsnps
 *pleio_snps
+modules/finemap_200527/data
+modules/finemap_200527/bimbam/
+modules/finemap_200527/ldFiles
+modules/finemap_200527/output
+modules/finemap_200527/rsid*

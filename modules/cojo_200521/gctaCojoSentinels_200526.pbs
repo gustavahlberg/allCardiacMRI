@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS group_list=cu_10039 -A cu_10039
+#PBS -m n 
+#PBS -l nodes=1:ppn=2,mem=44gb,walltime=172800
+#PBS -N 
+cd $PBS_O_WORKDIR
+
+
+phenos=(../gsmr_200520/data/rntrn_ilamax.gcta.tsv.gz ../gsmr_200520/data/rntrn_ilamin.gcta.tsv.gz ../gsmr_200520/data/rntrn_laaef.gcta.tsv.gz ../gsmr_200520/data/rntrn_lamax.gcta.tsv.gz ../gsmr_200520/data/rntrn_lamin.gcta.tsv.gz ../gsmr_200520/data/rntrn_lapef.gcta.tsv.gz ../gsmr_200520/data/rntrn_latef.gcta.tsv.gz)
+
+pheno=${phenos[${MOAB_JOBARRAYINDEX}]}
+
+bash ./gctaCojoSentinels_200526.sh $pheno

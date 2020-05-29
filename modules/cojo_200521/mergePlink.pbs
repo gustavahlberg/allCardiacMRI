@@ -1,0 +1,9 @@
+#!/bin/bash
+#PBS group_list=cu_10039 -A cu_10039
+#PBS -m n 
+#PBS -l nodes=1:ppn=2,mem=16gb:walltime=24000
+#PBS -N merge
+cd $PBS_O_WORKDIR
+module load plink2/1.90beta3
+
+plink --merge-list allPlinkFiles.txt     --make-bed     --out cojo 
