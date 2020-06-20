@@ -55,3 +55,16 @@ modules/finemap_200527/bimbam/
 modules/finemap_200527/ldFiles
 modules/finemap_200527/output
 modules/finemap_200527/rsid*
+modules/metaXcan_v2_200611/summary-gwas-imputation
+modules/metaXcan_v2_200611/output
+modules/metaXcan_v2_200611/MetaXcan
+modules/metaXcan_v2_200611/pbsscript
+modules/causeMr_200617/prunedSnps
+modules/causeMr_200617/causalResults
+modules/causeMr_200617/ldsc
+modules/causeMr_200617/ldscores
+modules/causeMr_200617/sumstats
+modules/causeMr_200617/LCV
+modules/causeMr_200617/catprunedSnps
+modules/causeMr_200617/pbsscripts/
+modules/metaXcan_v2_200611/pbsscripts/
