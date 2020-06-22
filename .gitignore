@@ -68,3 +68,5 @@ modules/causeMr_200617/LCV
 modules/causeMr_200617/catprunedSnps
 modules/causeMr_200617/pbsscripts/
 modules/metaXcan_v2_200611/pbsscripts/
+modules/finemap_200527/vcfs/
+modules/finemap_200527/vcfAnnonted/

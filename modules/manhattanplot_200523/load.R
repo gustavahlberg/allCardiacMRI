@@ -1,0 +1,5 @@
+library(data.table)
+library(biomaRt)
+library(RIdeogram)
+source("lib/gwasManhattan.R")
+source("lib/nearest_gene.R")

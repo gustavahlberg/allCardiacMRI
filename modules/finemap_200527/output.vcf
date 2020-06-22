@@ -1,0 +1,75 @@
+##fileformat=VCFv4.2
+##FILTER=<ID=PASS,Description="All filters passed">
+##contig=<ID=1,length=249250621>
+##contig=<ID=2,length=243199373>
+##contig=<ID=3,length=198022430>
+##contig=<ID=4,length=191154276>
+##contig=<ID=5,length=180915260>
+##contig=<ID=6,length=171115067>
+##contig=<ID=7,length=159138663>
+##contig=<ID=8,length=146364022>
+##contig=<ID=9,length=141213431>
+##contig=<ID=10,length=135534747>
+##contig=<ID=11,length=135006516>
+##contig=<ID=12,length=133851895>
+##contig=<ID=13,length=115169878>
+##contig=<ID=14,length=107349540>
+##contig=<ID=15,length=102531392>
+##contig=<ID=16,length=90354753>
+##contig=<ID=17,length=81195210>
+##contig=<ID=18,length=78077248>
+##contig=<ID=19,length=59128983>
+##contig=<ID=20,length=63025520>
+##contig=<ID=21,length=48129895>
+##contig=<ID=22,length=51304566>
+##contig=<ID=X,length=155270560>
+##contig=<ID=Y,length=59373566>
+##contig=<ID=MT,length=16569>
+##bcftools_pluginVersion=1.10.2-59-gf6b2fa3+htslib-1.10.2-82-g9de45b7
+##bcftools_pluginCommand=plugin fill-from-fasta -- tmp.vcf -c REF -f /Users/gustavahlberg/REF/hs.build37.1.fa; Date=Wed Jun 10 18:21:58 2020
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+9	97433716	rs10993297	T	C	100	.	.
+9	97445923	rs10821383	A	G	100	.	.
+9	97463930	9:97463930_TCA_T	TCA	T	100	.	.
+9	97466794	rs7862067	T	C	100	.	.
+9	97469740	rs528198208	A	T	100	.	.
+9	97469744	rs540389851	A	T	100	.	.
+9	97469747	rs28665328	C	T	100	.	.
+9	97475396	rs4744369	T	A	100	.	.
+9	97476484	rs1016013	A	G	100	.	.
+9	97477793	rs4744370	C	T	100	.	.
+9	97486236	rs406654	T	C	100	.	.
+9	97487022	rs414253	A	G	100	.	.
+9	97492520	rs7026071	T	C	100	.	.
+9	97499426	rs943393	C	T	100	.	.
+9	97505608	rs7866848	G	A	100	.	.
+9	97509199	rs446540	A	G	100	.	.
+9	97509323	9:97509323_GT_G	GT	G	100	.	.
+9	97517432	rs183066	C	T	100	.	.
+9	97527520	rs28540393	T	C	100	.	.
+9	97529278	rs2584806	C	A	100	.	.
+9	97537982	rs1751434	G	C	100	.	.
+9	97539488	rs7019720	A	G	100	.	.
+9	97547297	rs356141	A	C	100	.	.
+9	97552174	rs35102751	T	TG	100	.	.
+9	97567327	rs356131	A	G	100	.	.
+9	97575627	rs391784	T	A	100	.	.
+9	97579146	rs4744378	G	A	100	.	.
+9	97585788	rs35487382	A	G	100	.	.
+9	97592688	rs10821401	G	A	100	.	.
+9	97593262	rs140564406	T	A	100	.	.
+9	97600392	rs10993365	G	A	100	.	.
+9	97619090	rs10993372	A	T	100	.	.
+9	97648587	rs4385527	G	A	100	.	.
+9	97660961	rs11787821	C	T	100	.	.
+9	97669673	rs2183958	A	G	100	.	.
+9	97670558	rs4744403	T	A	100	.	.
+9	97677556	rs12235316	A	G	100	.	.
+9	97678911	rs10993394	G	A	100	.	.
+9	97679771	rs10993397	C	T	100	.	.
+9	97682075	rs10993398	A	T	100	.	.
+9	97685298	rs7853195	G	C	100	.	.
+9	97689045	rs4744411	G	A	100	.	.
+9	97709725	rs1123534	T	C	100	.	.
+9	97713459	rs10821415	C	A	100	.	.
+9	97723266	rs7864171	G	A	100	.	.
