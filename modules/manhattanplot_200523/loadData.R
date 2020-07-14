@@ -14,3 +14,7 @@ gwas$type = rep("typed",dim(gwas)[1])
 ###########################################
 # EOF # EOF # EOF # EOF # EOF # EOF # EOF #
 ###########################################
+
+gwas4 = gwas[gwas$CHR == 4,]
+
+gwas4[which.min(gwas4$P_BOLT_LMM),]

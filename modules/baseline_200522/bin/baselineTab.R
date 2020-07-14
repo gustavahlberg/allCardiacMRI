@@ -10,7 +10,7 @@
 allTabIncl = allTab[samples2includeAll,]
 
 
-N = 35628
+N = 35658
 male = paste0(sum(allTabIncl$sex == 1), " (",100*signif(sum(allTabIncl$sex == 1)/N, digits = 2), ")")
 age = paste0(median(allTabIncl$age), 
              " (",

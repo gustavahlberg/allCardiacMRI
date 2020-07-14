@@ -70,7 +70,7 @@ gwasInclusionFlowChart = grViz("digraph flowchart {
       [10]: 'Ethnically matched \\n with available CMRs\\n n=9,809'
       [11]: 'Study population exclusion criteria:\\n16>BMI<40, \\nincidence MI or HF'
       [12]: 'Replication of findings from \\nprimary cohort \\n n=9,510'
-      [13]: 'LA phenotypes GWAS on merged primary and replication cohorts \\n n=35,648'
+      [13]: 'LA phenotypes GWAS on merged primary and replication cohorts \\n n=35,658'
   
              
              ")

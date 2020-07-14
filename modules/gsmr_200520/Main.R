@@ -10,6 +10,7 @@
 
 library(rafalib)
 library(rethinking)
+library(xlsx)
 
 rm(list= ls())
 set.seed(42)
@@ -35,6 +36,9 @@ source("bin/mtCojoPlots.R")
 
 
 source("bin/gsmrPlots.R")
+source("bin/gsmrTables.R")
+
+
 
 #################################################
 # EOF # EOF # EOF # EOF # EOF # EOF # EOF # EOF #

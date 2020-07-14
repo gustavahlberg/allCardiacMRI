@@ -9,8 +9,8 @@
 gsmrFiles = list.files(pattern = "eff_plot.gz")
 
 mr = gsmrFiles[3]
-gsmrTab = data.frame(gsmr_data$bxy_result,
-                     stringsAsFactors = F)
+# gsmrTab = data.frame(gsmr_data$bxy_result,
+#                      stringsAsFactors = F)
 
 
 # ---------------------------------------------
@@ -52,10 +52,13 @@ gsmrMatPval = acast(gsmrTabExpLA,
 
 rn = rownames(gsmrMatExpLA)
 gsmrMatExpLA = apply(gsmrMatExpLA, 2, as.numeric)
+gsmrMatExpLAexp = exp(gsmrMatExpLA)
 rownames(gsmrMatExpLA) = rn
-gsmrMatExpLANum = signif(gsmrMatExpLA, digits = 2)
+gsmrMatExpLANum = signif(gsmrMatExpLAexp, digits = 2)
 
-bonfThres = 0.05/nrow(gsmrTab)
+sum(!gsmrTab$Outcome %in% c("AS","AIS","CES"))
+
+bonfThres = 0.05/sum(!gsmrTab$Outcome %in% c("AS","AIS","CES"))
 
 
 
@@ -71,8 +74,9 @@ tiff(filename = "GSMR_expoLA_heatmap.tiff",
      units = 'in',
      res = 300)
 
-
 col <- colorRampPalette(c("#d73027","#ffffed","#4575b4"))(256)
+col <- rev(col)
+
 pheatmap(gsmrMatExpLA,
          display_numbers = gsmrMatExpLANum,
          number_color = "black",
@@ -91,6 +95,8 @@ pheatmap(gsmrMatExpLA,
          width = 50,
          height = 50,
          na_col = 'white',
+         legend_breaks = c(-0.6,0,0.6),
+         legend_labels = c(0.5,0,2),
          cellheight=40,cellwidth=40
 )
 

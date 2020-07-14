@@ -38,3 +38,6 @@ bash $DIR/ldregression.sh
 #
 # 3. heritability, LAEF, LAmin&max
 #
+
+
+bash $DIR/ldh2.sh

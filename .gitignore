@@ -70,3 +70,6 @@ modules/causeMr_200617/pbsscripts/
 modules/metaXcan_v2_200611/pbsscripts/
 modules/finemap_200527/vcfs/
 modules/finemap_200527/vcfAnnonted/
+**/simpleSnpnetExampel.rda
+**/data/*
+modules/twoSampleMR_200622/exposure/

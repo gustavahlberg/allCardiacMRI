@@ -7,6 +7,8 @@
 #
 
 
+
+
 for(i in 1:length(snpsList)) {
   #i = 1
   snps = snpsList[[i]]
@@ -62,4 +64,6 @@ for(i in 1:length(snpsList)) {
 tmp = do.call(rbind,snpsList)
 
 tmp[tmp$rsid == "rs2073711",]
+
+
 

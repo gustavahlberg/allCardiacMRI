@@ -11,6 +11,7 @@ set.seed(42)
 DIR=system(intern=TRUE,ignore.stderr = TRUE,
            "cd \"$( dirname \"${BASH_SOURCE[0]}\" )\" && pwd ")
 
+library(xlsx)
 
 # -------------------------------
 #
@@ -27,5 +28,19 @@ source("loadData.R")
 
 
 source("makeVcf.R")
+
+
+# -------------------------------
+#
+# summary results
+#
+
+
+source("summaryResults.R")
+
+
+###########################################
+# EOF # EOF # EOF # EOF # EOF # EOF # EOF #
+###########################################
 
 

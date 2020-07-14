@@ -51,3 +51,11 @@ java -jar ~/bin/snpEff/SnpSift.jar dbnsfp -v -db \
 
 
 
+# -----------------------------------------
+#
+# Results
+#
+
+grep --with-filename missense vcfAnnonted/*.csnps.annon.dbnsp.vcf | tr ":" "\t" > resFinemapMissense.tab
+
+

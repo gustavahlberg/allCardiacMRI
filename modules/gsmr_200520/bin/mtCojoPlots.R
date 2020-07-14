@@ -33,7 +33,7 @@ for(file.fn in files.fn){
 
 mtCojoTab$A2[mtCojoTab$A2 == "TRUE"] <- "T"
 
-mtCojoTab[mtCojoTab$SNP == "rs7842765",]
+mtCojoTab = mtCojoTab[-which(mtCojoTab$SNP == "rs7842765"),]
 
 # ---------------------------------------------
 #
@@ -63,6 +63,12 @@ mtCojoTab = rbind(mtCojoTabNone , mtCojoTabCond)
 
 
 mtCojoTab = mtCojoTab[order(mtCojoTab$SNP, mtCojoTab$pheno, mtCojoTab$condPheno),]
+mtCojoTab$pheno = toupper(mtCojoTab$pheno)
+mtCojoTab$pheno[mtCojoTab$pheno == "ILAMIN"] = "iLAmin"
+mtCojoTab$pheno[mtCojoTab$pheno == "ILAMAX"] = "iLAmax"
+mtCojoTab$pheno[mtCojoTab$pheno == "LAMIN"] = "LAmin"
+mtCojoTab$pheno[mtCojoTab$pheno == "LAMAX"] = "LAmax"
+
 
 mtCojoTabVol = mtCojoTab[grep("max|min",mtCojoTab$pheno),]
 mtCojoTabFunc = mtCojoTab[-grep("max|min",mtCojoTab$pheno),]
@@ -76,8 +82,9 @@ source("bin/LaFuncplotMtCojo.R")
 
 
 
-
-
+write.xlsx(mtCojoTab,
+           "mtCojoResults.xlsx",
+           row.names = F)
 
 
 

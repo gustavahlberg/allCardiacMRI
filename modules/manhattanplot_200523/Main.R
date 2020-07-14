@@ -61,7 +61,7 @@ for(sumstatsLA in sumstats.list) {
 }
 
 
-write.table(locusAll[c("Pheno", "sentinel_rsid","sent_pval", "chr","bp","startBP","stopBP","totBP")],
+write.table(locusAll[c("Pheno", "sentinel_rsid","sent_pval", "chr","bp","gene","startBP","stopBP","totBP")],
             file = "../../results/tables/definedLocus_200524.tab",
             quote = F,
             row.names = F,

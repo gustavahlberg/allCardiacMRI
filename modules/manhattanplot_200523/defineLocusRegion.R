@@ -41,6 +41,16 @@ locusMat = as.data.frame(locusMat, stringsAsFactors = F)
 
 locusAll = rbind(locusAll,locusMat)
 
+
+locusAll$gene = apply(locusAll,1,function(lo) {nearest_gene(lo,genelist)$GENE})
+
+
+
+
+write.table(locusAll,
+            )
+
+
 ###########################################
 # EOF # EOF# EOF# EOF# EOF# EOF# EOF# EOF #
 ###########################################
