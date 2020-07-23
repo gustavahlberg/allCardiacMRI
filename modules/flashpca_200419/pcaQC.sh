@@ -8,7 +8,6 @@
 #
 #
 
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 module load plink2/1.90beta5.4 

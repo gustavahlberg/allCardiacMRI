@@ -9,14 +9,14 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
+module load moab
 mkdir -p sumstats
 
 #git clone https://github.com/bulik/ldsc.git
 #cd ldsc
 #conda env create --file environment.yml
 
-git clone https://github.com/lukejoconnor/LCV.git
-
+#git clone https://github.com/lukejoconnor/LCV.git
 source activate ldsc
 #wget https://data.broadinstitute.org/alkesgroup/LDSCORE/w_hm3.snplist.bz2
 #bunzip2 w_hm3.snplist.bz2
@@ -60,4 +60,30 @@ done
 #
 
 
-lcvAnalysis.R $exposure $outcome
+exposurearr=(AF HF AS AIS CES)
+outcomearr=(lamin ilamin lamax ilamax latef laaef lapef)
+
+
+for exposure in "${exposurearr[@]}"
+do
+    for outcome in "${outcomearr[@]}"; do
+            cat > pbsscripts/lcv.${exposure}.${outcome}.pbs <<EOF
+
+#!/bin/bash
+#PBS group_list=cu_10039 -A cu_10039
+#PBS -m n 
+#PBS -l nodes=1:ppn=2,mem=16gb,walltime=14400
+#PBS -N lcv.${exposure}_${outcome}
+cd \$PBS_O_WORKDIR
+
+Rscript lcvAnalysis.R $exposure $outcome
+
+EOF
+
+            echo "lcv.${exposure}.${outcome}"
+            msub pbsscripts/lcv.${exposure}.${outcome}.pbs
+            sleep 2
+    done
+done
+
+

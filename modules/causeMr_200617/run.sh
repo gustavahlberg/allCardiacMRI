@@ -163,7 +163,7 @@ EOF
 done
 
 
-Rscript ${DIR}/causalAnalysis.R AF CES
+#Rscript ${DIR}/causalAnalysis.R AF CES
 
 
 
@@ -174,7 +174,9 @@ Rscript ${DIR}/causalAnalysis.R AF CES
 #
 
 
-
 ${DIR}/runLCV.sh
 
-Rscript lcvAnalysis.R $exposure $outcome
+
+###########################################
+# EOF # EOF # EOF # EOF # EOF # EOF # EOF #
+###########################################

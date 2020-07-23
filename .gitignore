@@ -73,3 +73,5 @@ modules/finemap_200527/vcfAnnonted/
 **/simpleSnpnetExampel.rda
 **/data/*
 modules/twoSampleMR_200622/exposure/
+modules/prs_bigsnprLasso_200721/results
+modules/prs_snpnetLasso_200709/ukbMriSubset.train.fam

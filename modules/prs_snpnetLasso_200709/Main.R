@@ -14,6 +14,7 @@
 #
 
 library(data.table)
+library(caret)
 
 rm(list= ls())
 set.seed(42)
@@ -36,6 +37,59 @@ source("bin/makeSampleSets.R")
 #
 
 
+system("bash qcSnpset.sh")
 
 
+# ----------------------------------
+#
+# 3) Format to pgen
+#
+
+system("bash makePgen.sh")
+source("bin/makePgen.R")
+
+
+# ----------------------------------
+#
+# 4) Train
+#
+
+set.seed(3456)
+folds = createMultiFolds(tmp$lamin, k = 10, times = 3)
+
+
+tmp = read.table("data/phenTrain.sort.phe",
+                 stringsAsFactors = F,
+                 header = T)
+tmp$split = "val"
+#idx = sample(seq(nrow(tmp)),floor(0.3*nrow(tmp)))
+i = 1
+idx = folds[[i]]
+tmp$split[idx] <- "train"
+
+#tmp$laaef_scale = scale(tmp$laaef)
+#tmp$height_scale = scale(tmp$height)
+#tmp$LVEF_scale = scale(tmp$LVEF)
+#tmp$hi_aef <- ifelse(tmp$laaef_scale < -1, 1, 0 )
+
+
+
+write.table(tmp,
+            file = "data/phenTrain.sort.phe",
+            row.names = F,
+            col.names = T)
+            
+
+source("bin/train.R")
+
+
+
+# ----------------------------------
+#
+# 4) Test
+#
+
+
+
+source("bin/test.R")
 

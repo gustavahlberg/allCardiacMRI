@@ -15,8 +15,8 @@ args <- commandArgs(trailingOnly = TRUE)
 exposure = args[1]
 outcome = args[2]
 
-exposure = 'AF'
-outcome = 'laaef'
+#exposure = 'laaef'
+#outcome = 'AF'
 
 #setwd(".../LCV/")
 source("LCV/R/RunLCV.R")
@@ -50,9 +50,9 @@ X2 = na.omit(data.frame(X2, stringsAsFactors =F))
 
 #Load LD scores
 ldscoresFile="ldscores/unannotated_LDscores.l2.ldsc"
-X3=read.table(ldscoresFile,header=TRUE,sep=' ',stringsAsFactors=FALSE)
-X3 = na.omit(data.frame(X3, stringsAsFactors =F))
+X3=na.omit(read.table(ldscoresFile,header=TRUE,sep='\t',stringsAsFactors=FALSE))
 
+X3 = X3[X3$MAF > 0.05,]
 
 # -----------------------------------------------
 #
@@ -63,7 +63,7 @@ m = merge(X3,X1,by="SNP")
 data = merge(m,X2,by="SNP")
 
 #Sort by position
-data = m2[order(m2[,"CHR"],m2[,"BP"]),]
+data = data[order(as.numeric(data[,"CHR"]),as.numeric(data[,"BP"])),]
 
 #Flip sign of one z-score if opposite alleles-shouldn't occur with UKB data
 #If not using munged data, will have to check that alleles match-not just whether they're opposite A1/A2
@@ -72,7 +72,7 @@ data[mismatch,]$Z.y = data[mismatch,]$Z.y*-1
 data[mismatch,]$A1.y = data[mismatch,]$A1.x
 data[mismatch,]$A2.y = data[mismatch,]$A2.x
 
-
+data = data[-which(data$CHR == 6 & data$BP > 29e6 & data$BP < 33e6),]
 
 
 # -----------------------------------------------
@@ -81,10 +81,19 @@ data[mismatch,]$A2.y = data[mismatch,]$A2.x
 #
 
 
-LCV = RunLCV(data$L2,data$Z.x,data$Z.y)
-sprintf("Estimated posterior gcp=%.2f(%.2f), log10(p)=%.1f; estimated rho=%.2f(%.2f)",
+LCV = RunLCV(as.numeric(data$L2), data$Z.x, data$Z.y)
+
+sprintf("Exposure: %s, outcome: %s",
+        exposure,
+        outcome)
+
+sprintf("Estimated posterior gcp=%.3f(%.3f), pval.gcpzero.2tailed = %.3f,log10(p)=%.3f; estimated rho=%.3f(%.3f)",
         LCV$gcp.pm,
         LCV$gcp.pse,
+        LCV$pval.gcpzero.2tailed,
         log(LCV$pval.gcpzero.2tailed)/log(10),
         LCV$rho.est,
         LCV$rho.err)
+
+
+
