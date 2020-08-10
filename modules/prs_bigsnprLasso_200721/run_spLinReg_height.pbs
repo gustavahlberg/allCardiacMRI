@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS group_list=cu_10039 -A cu_10039
+#PBS -m n 
+#PBS -l nodes=1:ppn=12,mem=32gb,walltime=252000
+#PBS -N 
+cd $PBS_O_WORKDIR
+
+module load R/4.0.0
+
+pheno=height
+
+
+Rscript bin/run_spLinReg.R $pheno

@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS group_list=cu_10039 -A cu_10039
+#PBS -m n 
+#PBS -l nodes=1:ppn=6,mem=42gb,walltime=252000
+#PBS -N 
+cd $PBS_O_WORKDIR
+
+module load R/4.0.0
+
+phenos=(ilamax ilamin laaef lamax lamin lapef latef)
+pheno=${phenos[${MOAB_JOBARRAYINDEX}]}
+
+
+Rscript Main.R $pheno

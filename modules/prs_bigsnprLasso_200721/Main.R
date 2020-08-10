@@ -58,11 +58,18 @@ source("bin/makeBigSnprMatrix.R")
 save(qcTab, phenoTab,ind.indiv, ind.test, ind.train, file = "data/phenotypeData.rda")
 
 source("bin/run_spLinReg.R")
-
 system("msub -t 1-7 run_spLinReg.pbs")
 
 
 # ----------------------------------
 #
-# 4) save model
+# 5) predict
+#
+
+source("bin/predictModels.R")
+
+
+# ----------------------------------
+#
+# 5) save model
 #
