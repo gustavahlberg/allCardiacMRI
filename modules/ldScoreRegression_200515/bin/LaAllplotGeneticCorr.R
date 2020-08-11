@@ -1,72 +1,37 @@
-# 
-# plot
-#
 # ---------------------------------------------------
 #
-# get nominal significant snps
+# La function plot 
 #
-
-
-idxNominal = which(apply(sapply(1:7, function(i) genCor[[i]]$p <= 0.05),1,any))
-genCorNom = list()
-for(i in 1:7) 
-  genCorNom[[names(genCor)[i]]] = genCor[[i]][idxNominal,]
-lengths(genCorNom)
-
-
 # ---------------------------------------------------
-#
-# LA volumes plot
-#
 
 
-source("bin/LaVolplotGeneticCorr.R")
+genCorAll = genCor[c("ilamax",'ilamin',"laaef","lapef","latef")]
 
+table = do.call(rbind, genCorAll)
+table$p1 = toupper(table$p1)
+table$p1[table$p1 == "ILAMAX"] <- "LAmax"
+table$p1[table$p1 == "ILAMIN"] <- "LAmin"
 
-# ---------------------------------------------------
-#
-# LA function plot
-#
+# subset
+table = table[-which(table$p2 == "Type II diabetes" | table$p2 == "Health rating"),]
 
-source("bin/LaFuncplotGeneticCorr.R")
-
-
-# ---------------------------------------------------
-#
-# LA plot all
-#
-
-source("bin/LaAllplotGeneticCorr.R")
-
-# ---------------------------------------------------
-#
-# plot 
-#
-
-table = do.call(rbind,genCorNom)
 #table$signGroup = ifelse(table$p >= 0.05, 'gray60', ifelse(table$p*nrow(table) >= 0.05,3, 1))
 table$signGroup = ifelse(table$p >= 0.05, 'gray60', 1)
 
 table$p1 = gsub(".unadj","",table$p1)
-#idx = sapply(seq(0,length.out = 11, by = 4) ,function(i) (1:3 + i))
-idx = sapply(seq(0,length.out = 12, by = 4) ,function(i) (1:3 + i))
+idx = sapply(seq(0,length.out = 8, by = 6) ,function(i) (1:5 + i))
 
-as.vector(idx)
+idx = as.vector(idx)
 
 xlab =expression("Genetic correlation ("*italic(r)['g']*")")
 mypar(mar = c(4,0.5,3,1))
 o = order(table$p2,decreasing = T)
 
-tiff(filename = "unadjusted_GeneticCorrelation_191214.tiff",
+tiff(filename = "LaAll_GeneticCorrelation_200731.tiff",
      width = 9, height = 8.5, 
      units = 'in',
      res = 300)
 
-
-# tiff(filename = "unadjusted_GeneticCorrelation_191214.tiff",
-#      width = 9, height = 8.5, 
-#      units = 'in',
-#      res = 300)
 
 plot(table$rg[o], as.vector(idx) ,
      type = 'n',
@@ -130,28 +95,34 @@ for(k in 1:nrow(table)) {
   #text(-0.55,i, labels = table$p2[j], cex = 0.7, adj = c(1,NA))
   
   tmp = format(signif(table$p[j],1), scientific = FALSE)
-  t = unlist(strsplit(split = "",tmp))
-  ans = which(t != 0)
+  if(tmp == 1) {
+    num =  tmp
+    name = paste(table$p1[j],"vs" ,table$p2[j])
+    poly = 0
+  } else {
+    t = unlist(strsplit(split = "",tmp))
+    ans = which(t != 0)
+    poly = 2 - ans[2] 
+    num =  t[ans[2]]
+    name = paste(table$p1[j],"vs" ,table$p2[j])
+  }
   
-  poly = 2 - ans[2] 
-  num =  t[ans[2]]
-  name = paste(table$p1[j],"vs" ,table$p2[j])
-  
-  text(-0.7,i, bquote( .(name) ~ "(P ="~.(num)~x~10^.(poly) *")"), 
+  text(-0.8,i, bquote( .(name) ~ "(P ="~.(num)~x~10^.(poly) *")"), 
        cex = 0.75, adj = c(1,0.3) )
+  
   
 }
 
 
 mypar(xpd = T,mar = c(4,0.5,3,1))
-legend(-0.35, 52,
+legend(-0.35, 50,
        c("P > 0.05","P < 0.05"),
        cex = 0.85,
        col = c('gray60',1),
        pch = 16,
        bty = "n",
        ncol = 3,
-       pt.cex = 1.2,
+       pt.cex = 1.3,
        text.width = 0.35
 )
 
@@ -170,8 +141,3 @@ legend(-0.35, 52,
 mypar(mar = c(4,0.5,3,1))
 
 dev.off()
-
-
-
-
-

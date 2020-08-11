@@ -124,7 +124,7 @@ phe <- readPheMaster(phenotype.file, ids, "gaussian", covariates, phenotype, NUL
 vars <- readRDS(system.file("extdata", "vars.rds", package = "snpnet"))
 pvar <- pgenlibr::NewPvar(paste0(genotype.pfile, '.pvar.zst'))
 pgen <- pgenlibr::NewPgen(paste0(genotype.pfile, '.pgen'), pvar = pvar, sample_subset = NULL)
-data.X <- pgenlibr::ReadList(pgen, seq_along(vars), meanimpute=F)
+data.X <- pgenlibr::ReadList(pgen, 1, meanimpute=F)
 colnames(data.X) <- vars
 p <- ncol(data.X)
 pnas <- numeric(p)
@@ -136,6 +136,13 @@ for (j in 1:p) {
 }
 
 
+
+predict_snpnet(fit = NULL, saved_path = NULL, new_genotype_file, new_phenotype_file, phenotype,
+                           gcount_path = NULL, meta_dir = NULL, meta_suffix = ".rda",
+                           covariate_names = NULL, split_col = NULL, split_name = NULL, idx = NULL,
+                           family = NULL,
+                           snpnet_prefix = "output_iter_", snpnet_suffix = ".RData", snpnet_subdir = "results",
+                           configs = list(zstdcat.path = "zstdcat", zcat.path='zcat')) {
 
 
 

@@ -82,6 +82,7 @@ write.table(x = phenoTest,
 
 plot(phenoTest$bPC1,phenoTest$bPC2)
 
+
 #############################################################
 # EOF # EOF # EOF # EOF # EOF # EOF # EOF # EOF # EOF # EOF #
 #############################################################

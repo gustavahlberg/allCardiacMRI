@@ -46,7 +46,10 @@ for (i in 1:length(unique(locusAll$Type))) {
 # ideogram
 #
 
-
+# rm lamax & lamin + chr8 hit
+locusAll.bakk = locusAll
+dim(locusAll[-which(locusAll$Type == 'lamin' | locusAll$Type == 'lamax' | locusAll$sentinel_rsid == 'rs7842765'),])
+locusAll = locusAll[-which(locusAll$Type == 'lamin' | locusAll$Type == 'lamax' | locusAll$sentinel_rsid == 'rs7842765'),]
 
 locusAll$Chr = locusAll$chr
 ideagramLabels = locusAll[,c("Type","Shape","Chr","Start","End","color")]

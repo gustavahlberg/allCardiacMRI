@@ -77,6 +77,19 @@ tiff(filename = "GSMR_expoLA_heatmap.tiff",
 col <- colorRampPalette(c("#d73027","#ffffed","#4575b4"))(256)
 col <- rev(col)
 
+# ---------------------------------------
+#
+# Quick edit 200731 
+#
+
+gsmrMatExpLA.bakk = gsmrMatExpLA
+gsmrMatExpLANum.bakk = gsmrMatExpLANum
+
+gsmrMatExpLA = gsmrMatExpLA[-c(4:5),]
+gsmrMatExpLANum = gsmrMatExpLANum[-c(4:5),]
+
+rownames(gsmrMatExpLA) <- c("LAmax", "LAmin", "LAAEF", "LAPEF", "LATEF")
+
 pheatmap(gsmrMatExpLA,
          display_numbers = gsmrMatExpLANum,
          number_color = "black",
@@ -115,6 +128,9 @@ gsmrTab = data.frame(gsmr_data$bxy_result,
 
 gsmrTabExpLA = gsmrTab[grep("AF",gsmrTab$Exposure),]
 
+gsmrTabExpLA = gsmrTabExpLA[-which(gsmrTabExpLA$Outcome == "lamin" | gsmrTabExpLA$Outcome == "lamax"),]
+
+gsmrTabExpLA$Outcome =  c("LAmin", "LAmax", "LATEF", "LAAEF", "LAPEF")
 
 tiff(filename = "MR_AFexpsure_LAoutcomes.tiff",
      width = 8, height = 8.5, 
@@ -125,7 +141,7 @@ tiff(filename = "MR_AFexpsure_LAoutcomes.tiff",
 mypar(mar = c(4,0.5,3,1))
 plot(gsmrTabExpLA$bxy, 1:nrow(gsmrTabExpLA) + 1 ,
      type = 'n',
-     xlim = c(-0.3,0.2), 
+     xlim = c(-0.5,0.2), 
      cex = 1,
      xlab = "",
      ylab = "",
@@ -139,7 +155,7 @@ axis(1, at = c(-0.15,-0.1,-0.05, 0,0.05, 0.1, 0.15),
      labels = c(-0.15,-0.1,-0.05, 0,0.05, 0.1, 0.15), 
      tick = TRUE, 
      las = 1,
-     cex.axis = 0.85)
+     cex.axis = 1.5)
 
 axis(1, at = c(-0.16,-0.15),
      labels = FALSE, 
@@ -167,9 +183,9 @@ for(k in 1:nrow(gsmrTabExpLA)) {
   
   # 95 % CI 
   lines(c(table$bxy[j] - 1.96*table$se[j], table$bxy[j] + 1.96*table$se[j]), rep(i,2),
-        lwd =1, col = "darkgrey")
+        lwd =4, col = "darkgrey")
   
-  points(table$bxy[j],i, pch = 16, cex = 1.1, col = "black")
+  points(table$bxy[j],i, pch = 16, cex = 3, col = "black")
   
   
   tmp = format(signif(as.numeric(table$p[j]),1), scientific = FALSE)
@@ -186,7 +202,7 @@ for(k in 1:nrow(gsmrTabExpLA)) {
   }
   
   text(-0.15,i, bquote( .(name) ~ "(P ="~.(num)~x~10^.(poly) *")"), 
-       cex = 1.1, adj = c(1,0.3) )
+       cex = 2, adj = c(1,0.3) )
   
   
 }
