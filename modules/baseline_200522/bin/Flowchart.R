@@ -58,19 +58,19 @@ gwasInclusionFlowChart = grViz("digraph flowchart {
     
       }
       
-      [1]: 'Primary cohort:'
+      [1]: 'Set 1:'
       [2]: 'DICOM CMR images\\n converted into NifTI format\\n n=31,730'
-      [3]: 'Filtering and annotation\\nof LA phenotypes:\\n LAVmax, LAVmin,\\nLAAEF, LAPEF, LATEF\\n n=29,898'
+      [3]: 'Filtering and annotation\\nof LA traits:\\n LAmax, LAmin,\\nLAAEF, LAPEF, LATEF\\n n=29,898'
       [4]: 'Ethnically matched \\n with available CMRs\\n n=27,086'
-      [5]: 'Study population exclusion criteria:\\n16>BMI<40, \\nincidence MI or HF'
-      [6]: 'Primary cohort GWA studies on \\n LA phenotypes \\n n=26,148'
-      [7]: 'Replication cohort:'
+      [5]: 'Study population exclusion criteria:\\n16>BMI<40, \\nIncident MI or HF'
+      [6]: 'Split set 1 GWA studies on \\n LA traits \\n n=26,148'
+      [7]: 'Set 2:'
       [8]: 'DICOM CMR images\\n converted into NifTI format\\n n=11,857'
-      [9]: 'Filtering and annotation\\nof LA phenotypes:\\n LAVmax, LAVmin,\\nLAAEF, LAPEF, LATEF\\n n=11,097'
+      [9]: 'Filtering and annotation\\nof LA traits:\\n LAmax, LAmin,\\nLAAEF, LAPEF, LATEF\\n n=11,097'
       [10]: 'Ethnically matched \\n with available CMRs\\n n=9,809'
-      [11]: 'Study population exclusion criteria:\\n16>BMI<40, \\nincidence MI or HF'
-      [12]: 'Replication of findings from \\nprimary cohort \\n n=9,510'
-      [13]: 'LA phenotypes GWAS on merged primary and replication cohorts \\n n=35,658'
+      [11]: 'Study population exclusion criteria:\\n16>BMI<40, \\nIncident MI or HF'
+      [12]: 'Split set 2 GWA studies on \\n LA traits \\n n=9,510'
+      [13]: 'LA traits GWAS on all samples in cohort \\n n=35,658'
   
              
              ")

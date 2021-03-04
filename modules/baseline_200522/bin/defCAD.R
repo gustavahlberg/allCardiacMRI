@@ -14,22 +14,27 @@ defCAD = list(f.20002 = c("1075"),
               )
 
 
-all(rownames(icdCodesList$ICD10) == samplesCMR)
 nSamples = dim(icdCodesList$ICD10)[1]
 
 
 CADpheno = data.frame(sample.id = rownames(icdCodesList$ICD10),
-                      icd10 = rep(0, nSamples),
-                      icd9 = rep(0, nSamples),
-                      opcs4 = rep(0, nSamples),
-                      illSR = rep(0, nSamples),
-                      stringsAsFactors = F
+                     icd10 = rep(0, nSamples),
+                     dateICD10 = rep(0, nSamples),
+                     icd9 = rep(0, nSamples),
+                     dateICD9 = rep(0, nSamples),
+                     opcs4 = rep(0, nSamples),
+                     dateOPCS4 = rep(0, nSamples),
+                     illSR = rep(0, nSamples),
+                     illSRage = rep(0, nSamples),
+                     opSR = rep(0, nSamples),
+                     opSRage = rep(0, nSamples),
+                     stringsAsFactors = F
 )
 
 
 #icd 10
 idx = grep(defCAD$f.41270, icdCodesList$ICD10)
-icdCodesList$ICD10[idx]
+table(icdCodesList$ICD10[idx])
 
 idx = unique(idx%%nSamples)
 CADpheno$icd10[idx] <- 1

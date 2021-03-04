@@ -9,15 +9,25 @@ library('pheatmap')
 library(grid)
 col<- colorRampPalette(c("red", "white", "blue"))(256)
 
-h2matCol = phenocorrMat
-h2mat = phenocorrMatSE
+#h2matCol = phenocorrMat
+#h2mat = phenocorrMatSE
 
-# h2matCol = gencormatNum
-# h2mat = gencormat
-#h2mat[lower.tri(h2mat,diag = T)] <- ""
+gencormatNum = gencormatNum[setdiff(colnames(gencormatNum), c("lamin","lamax")),
+                            setdiff(colnames(gencormatNum), c("lamin","lamax"))]
+
+gencormat = gencormat[setdiff(colnames(gencormat), c("lamin","lamax")),
+                      setdiff(colnames(gencormat), c("lamin","lamax"))]
 
 
-h2mat[lower.tri(h2mat,diag = T)] <- ""
+h2matCol = gencormatNum
+h2mat = gencormat
+h2mat[lower.tri(h2mat,diag = F)] <- ""
+
+labelsFigure =colnames(h2mat)
+labelsFigure = toupper(labelsFigure)
+labelsFigure[1:2] <- c("LAmax","LAmin")
+
+# h2mat[lower.tri(h2mat,diag = T)] <- ""
 h2matCol[lower.tri(h2matCol,diag = T)] <- NA
 
 
@@ -29,10 +39,16 @@ h2matCol[lower.tri(h2matCol,diag = T)] <- NA
 #   h2mat[i,i] <- paste("(",as.character(h2mat[i,i]),")")
 
 
-tiff(filename = "results/PhenotypeCorrelationHeatmap.tiff",
+# tiff(filename = "results/PhenotypeCorrelationHeatmap.tiff",
+#      width = 6.1, height = 6.1,
+#      units = 'in',
+#      res = 300)
+
+tiff(filename = "results/GeneticCorrelationHeatmap.tiff",
      width = 6.1, height = 6.1,
      units = 'in',
      res = 300)
+
 
 pheatmap(h2matCol,
          display_numbers = h2mat,
@@ -43,8 +59,8 @@ pheatmap(h2matCol,
          cluster_cols = F,
          color = col,
          angle_col = 45,
-         labels_row = colnames(h2mat),
-         labels_col = colnames(h2mat),
+         labels_row = labelsFigure,
+         labels_col = labelsFigure,
          border_color = "white",
          fontsize_number = 6,
          fontsize_row = 7,
@@ -62,12 +78,12 @@ pheatmap(h2matCol,
 #           name = NULL, draw = TRUE, vp = NULL
 # )
 
-grid.text('Phenotype correlation', x = 0.45, y = 0.82,
-          gp=gpar(fontsize=12, col="black"),
-          just = "centre", hjust = NULL, vjust = NULL, rot = 0,
-          check.overlap = FALSE, default.units = "npc",
-          name = NULL, draw = TRUE, vp = NULL
-)
+# grid.text('Phenotype correlation', x = 0.45, y = 0.82,
+#           gp=gpar(fontsize=12, col="black"),
+#           just = "centre", hjust = NULL, vjust = NULL, rot = 0,
+#           check.overlap = FALSE, default.units = "npc",
+#           name = NULL, draw = TRUE, vp = NULL
+# )
 
 # grid.text('Phenotype correlation', x = 0.05, y = 0.5,
 #           gp=gpar(fontsize=12, col="black"),

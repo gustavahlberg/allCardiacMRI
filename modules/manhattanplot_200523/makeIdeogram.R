@@ -47,9 +47,15 @@ for (i in 1:length(unique(locusAll$Type))) {
 #
 
 # rm lamax & lamin + chr8 hit
-locusAll.bakk = locusAll
+locusAll = locusAll.bakk 
+#locusAll.bakk = locusAll
 dim(locusAll[-which(locusAll$Type == 'lamin' | locusAll$Type == 'lamax' | locusAll$sentinel_rsid == 'rs7842765'),])
 locusAll = locusAll[-which(locusAll$Type == 'lamin' | locusAll$Type == 'lamax' | locusAll$sentinel_rsid == 'rs7842765'),]
+
+# ilamax -> lamin
+locusAll$Type <- toupper(locusAll$Type)
+locusAll$Type[locusAll$Type == "ILAMAX"] <- "LAmax"
+locusAll$Type[locusAll$Type == "ILAMIN"] <- "LAmin"
 
 locusAll$Chr = locusAll$chr
 ideagramLabels = locusAll[,c("Type","Shape","Chr","Start","End","color")]

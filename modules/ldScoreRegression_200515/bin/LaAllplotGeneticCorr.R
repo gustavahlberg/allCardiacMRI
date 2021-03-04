@@ -7,27 +7,43 @@
 
 genCorAll = genCor[c("ilamax",'ilamin',"laaef","lapef","latef")]
 
+p2order <- data.frame(no = 1:10,
+                      pheno = c("Atrial fibrillation","Cardioembolic stroke", 
+                                "Ischemic stroke", "Stroke",
+                                "diastolic bp", "Systolic bp", 
+                                "Heart Failure", "Body mass index",
+                                "Type II diabetes", "Health rating"))
+
+
+for(i in 1:length(genCorAll)) {
+  row.names(genCorAll[[i]]) <- genCorAll[[i]]$p2
+  genCorAll[[i]] <- genCorAll[[i]][p2order$pheno,]
+  genCorAll[[i]]$no <- p2order$no
+}
+
 table = do.call(rbind, genCorAll)
 table$p1 = toupper(table$p1)
 table$p1[table$p1 == "ILAMAX"] <- "LAmax"
 table$p1[table$p1 == "ILAMIN"] <- "LAmin"
+table$p2[table$p2 == "diastolic bp"] <- "Diastolic bp"
 
 # subset
-table = table[-which(table$p2 == "Type II diabetes" | table$p2 == "Health rating"),]
+#table = table[-which(table$p2 == "Type II diabetes" | table$p2 == "Health rating"),]
 
 #table$signGroup = ifelse(table$p >= 0.05, 'gray60', ifelse(table$p*nrow(table) >= 0.05,3, 1))
 table$signGroup = ifelse(table$p >= 0.05, 'gray60', 1)
 
-table$p1 = gsub(".unadj","",table$p1)
-idx = sapply(seq(0,length.out = 8, by = 6) ,function(i) (1:5 + i))
+#table$p1 = gsub(".unadj","",table$p1)
+idx = sapply(seq(0,length.out = 10, by = 6) ,function(i) (1:5 + i))
 
 idx = as.vector(idx)
 
 xlab =expression("Genetic correlation ("*italic(r)['g']*")")
 mypar(mar = c(4,0.5,3,1))
-o = order(table$p2,decreasing = T)
+o = order(table$no,decreasing = T)
 
-tiff(filename = "LaAll_GeneticCorrelation_200731.tiff",
+
+tiff(filename = "LaAll_GeneticCorrelation_200918.tiff",
      width = 9, height = 8.5, 
      units = 'in',
      res = 300)
@@ -115,7 +131,7 @@ for(k in 1:nrow(table)) {
 
 
 mypar(xpd = T,mar = c(4,0.5,3,1))
-legend(-0.35, 50,
+legend(-0.35, 63,
        c("P > 0.05","P < 0.05"),
        cex = 0.85,
        col = c('gray60',1),

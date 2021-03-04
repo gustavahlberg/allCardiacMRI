@@ -155,7 +155,7 @@ axis(1, at = c(-0.15,-0.1,-0.05, 0,0.05, 0.1, 0.15),
      labels = c(-0.15,-0.1,-0.05, 0,0.05, 0.1, 0.15), 
      tick = TRUE, 
      las = 1,
-     cex.axis = 1.5)
+     cex.axis = 1.1)
 
 axis(1, at = c(-0.16,-0.15),
      labels = FALSE, 
@@ -170,7 +170,7 @@ abline(v = 0, col = alpha('black', 0.05))
 abline(v = 0.05, col = alpha('black', 0.05))
 abline(v = 0.1, col = alpha('black', 0.05))
 
-title(xlab="bxy", line = 2.3, adj = 0.5)
+title(xlab="bxy", line = 2.3, adj = 0.7, cex.main = 1.5)
 
 table = gsmrTabExpLA
 table[,"bxy"] = as.numeric(table[,"bxy"])
@@ -183,9 +183,9 @@ for(k in 1:nrow(gsmrTabExpLA)) {
   
   # 95 % CI 
   lines(c(table$bxy[j] - 1.96*table$se[j], table$bxy[j] + 1.96*table$se[j]), rep(i,2),
-        lwd =4, col = "darkgrey")
+        lwd =2, col = "black")
   
-  points(table$bxy[j],i, pch = 16, cex = 3, col = "black")
+  points(table$bxy[j],i, pch = 16, cex = 2, col = "black")
   
   
   tmp = format(signif(as.numeric(table$p[j]),1), scientific = FALSE)
@@ -201,8 +201,8 @@ for(k in 1:nrow(gsmrTabExpLA)) {
     name = table$Outcome[j]
   }
   
-  text(-0.15,i, bquote( .(name) ~ "(P ="~.(num)~x~10^.(poly) *")"), 
-       cex = 2, adj = c(1,0.3) )
+  text(-0.17,i, bquote( .(name) ~ "(P ="~.(num)~x~10^.(poly) *")"), 
+       cex = 1.5, adj = c(1,0.3) )
   
   
 }

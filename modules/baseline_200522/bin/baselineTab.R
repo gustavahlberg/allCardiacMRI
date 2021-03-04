@@ -57,7 +57,7 @@ baseLineTab = data.frame(varNames = c("N", "Age","Male", "Height", "Weight", "BM
 # cmr table
 #
 
-laparameters = c("lamax", "lamin", "ilamax", "ilamin", "laaef", "lapef", "latef")
+laparameters = c("ilamax", "ilamin", "lamdv","labac","laaef", "lapef", "latef", "LVEF", "LVEDV", "LVESV")
 
 laTab = allTabIncl[,laparameters]
 cmrTab = data.frame(mean = colMeans(laTab),
@@ -65,9 +65,15 @@ cmrTab = data.frame(mean = colMeans(laTab),
                        )
 
 cmrTab = data.frame(par = row.names(cmrTab),
-                    ml=paste0(signif(cmrTab$mean,2)," (", signif(cmrTab$sd,2),")")
+                    ml=paste0(signif(cmrTab$mean,3)," (", signif(cmrTab$sd,3),")")
 )
 
+
+mean(allTabIncl$lamax[allTabIncl$sex == 1]) +2*sd(allTabIncl$lamax[allTabIncl$sex == 1])
+
+mean(allTabIncl$latef) +2*sd(allTabIncl$latef)
+mean(allTabIncl$LVESV[allTabIncl$sex == 1])
+min(allTabIncl$LVEF)
 
 # ---------------------------------------------
 #
@@ -81,11 +87,15 @@ write.xlsx(x = baseLineTab,
            row.names = F)
 
 
+cmrTab = signif(cmrTab, 3)
+cmrTabpaste(cmrTab$mean,"(" ,cmrTab$sd, ")")
+
+
 write.xlsx(x = cmrTab,
            file = "cmrCharacteristics.xlsx",
            sheetName = "cmrCharacteristics",
            col.names = T,
-           row.names = F)
+           row.names = T)
 
 
 

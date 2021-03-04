@@ -81,6 +81,9 @@ source("bin/LaVolplotMtCojo.R")
 source("bin/LaFuncplotMtCojo.R")
 
 
+# La all plot 
+source("bin/LaAllplotMtCojo.R")
+
 
 write.xlsx(mtCojoTab,
            "mtCojoResults.xlsx",

@@ -24,7 +24,9 @@ source("getAllgenes.R")
 #                       )
 # colnames(genelist) <- c("CHR","START","END", "GENE")
 
-sumstats.list = list.files("../../data/gwas_results/gwas_rtrn/",full.names = T)
+sumstats.list = list.files("../../data/gwas_results/gwas_rtrn/",
+                          pattern = "tsv.gz",
+                           full.names = T)
 
 
 # ---------------------------------------------
@@ -49,7 +51,12 @@ locusAll = data.frame(Pheno = character(),
                       bp = character(),
                       startBP = character(),
                       stopBP = character(),
-                      totBP = character())
+                      totBP = character(),
+                      ALLELE1 = character(),
+                      ALLELE0 = character(),
+                      A1FREQ = character(),
+                      bstd = character(), 
+                      sestd = character())
 
 
 for(sumstatsLA in sumstats.list) {
@@ -60,9 +67,31 @@ for(sumstatsLA in sumstats.list) {
   print(sumstatsLA)
 }
 
+locusAll$gene = apply(locusAll,1,function(lo) {nearest_gene(lo,genelist)$GENE})
 
-write.table(locusAll[c("Pheno", "sentinel_rsid","sent_pval", "chr","bp","gene","startBP","stopBP","totBP")],
-            file = "../../results/tables/definedLocus_200524.tab",
+
+# ---------------------------------------------
+#
+# Get split set data
+#
+
+
+source("getSplitSetData.R")
+locusAll <- do.call(rbind,locusAllList)
+
+
+# ---------------------------------------------
+#
+# Get split set data
+#
+
+write.table(locusAll[,c("Pheno", "sentinel_rsid", "chr","bp", "ALLELE1", "ALLELE0","A1FREQ", 
+                       "sent_pval", "beta", "se",
+                       "gene","startBP","stopBP","totBP",
+                       "beta_set1", "se_set1", "pval_set1",
+                       "beta_set2", "se_set2", "pval_set2"
+                       )],
+            file = "../../results/tables/definedLocus_201207.tab",
             quote = F,
             row.names = F,
             col.names = T)
@@ -74,8 +103,6 @@ write.table(locusAll[c("Pheno", "sentinel_rsid","sent_pval", "chr","bp","gene","
 
 
 source("makeIdeogram.R")
-
-
 
 
 #################################################
