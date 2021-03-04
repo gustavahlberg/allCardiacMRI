@@ -25,7 +25,7 @@ out=${DIR}/../../data/subsetbgen/subset_ukb_imp_chr${i}_v3.bgen
 
 bgenix -g ${file} -incl-rsids ${rs} | \
     qctool -g - -filetype bgen -s $sampleData \
-    -incl-samples $samples -og $out -bgen-bits 8
+	   -incl-samples $samples -og $out -bgen-bits 8
 
 
 

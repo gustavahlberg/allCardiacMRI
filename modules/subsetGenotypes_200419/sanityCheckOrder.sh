@@ -29,7 +29,7 @@ plink --bfile $out --recode --tab --out $out
 
 out=${DIR}/sanityCheck/test2
 sampleData=${DIR}/../../data/ukbCMR.ordered.etn_200219.sample
-file=${DIR}/../../data/subsetFinal/subsetFinal_ukb_imp_chr1_v3.bgen
+File=${DIR}/../../data/subsetFinal/subsetFinal_ukb_imp_chr1_v3.bgen
 bgenix -g ${file} -index
 bgenix -g ${file} -incl-rsids ${rs} | \
     qctool -g - -filetype bgen \

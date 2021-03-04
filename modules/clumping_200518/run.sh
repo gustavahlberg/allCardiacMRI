@@ -28,8 +28,8 @@ msub -t 1-22 convert2binaryped.pbs
 # clump gwas's
 #
 
-pth=${DIR}/../gwas_w_bolt_v2_200420/results/gwas_rtrn
-sumstats=(rntrn_ilamin.bgen.stats.gz rntrn_ilamax.bgen.stats.gz rntrn_lamin.bgen.stats.gz rntrn_lamax.bgen.stats.gz rntrn_laaef.bgen.stats.gz rntrn_lapef.bgen.stats.gz rntrn_latef.bgen.stats.gz)
+pth=${DIR}/../gwas_w_bolt_200916/results/gwas_rtrn
+sumstats=(rntrn_ilamin.bgen.stats.gz rntrn_ilamax.bgen.stats.gz rntrn_laaef.bgen.stats.gz rntrn_lapef.bgen.stats.gz rntrn_latef.bgen.stats.gz)
 
 
 for sumstat in ${sumstats[@]}; do

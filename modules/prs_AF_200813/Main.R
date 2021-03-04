@@ -59,8 +59,8 @@ source("bin/sctStacked.R")
 # 4) ld pred 2
 #
 
-source("bin/makeGenotypeMatrix_ldpred2.R")
-source("bin/makeGenotypeMatrix_ldpred2.R")
+#source("bin/makeGenotypeMatrix_ldpred2.R")
+#source("bin/makeGenotypeMatrix_ldpred2.R")
 
 
 #################################################

@@ -15,10 +15,9 @@ load("data/samplesOrdered.rda", verbose = TRUE)
 load("data/dfAF.rda", verbose = TRUE)
 load("data/all_keep.rda", verbose = TRUE)
 
-
 matdata = "data/afCohort.rds"
 phenoTabIncl = phenoTab[ind.indiv,]
-
+ 
 ukbb <- snp_attach(matdata)
 G <- ukbb$genotypes
 
@@ -68,6 +67,7 @@ multi_PRS <- snp_grid_PRS(
 ##     y[ind.train],
 ##     ncores = 20
 ## )
+
 
 X = as.matrix(df[,c('age','sex',paste0('PC', 1:4))])
 

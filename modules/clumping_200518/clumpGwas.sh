@@ -4,7 +4,6 @@
 # ------------------------------
 
 sumstat=$1
-#sumstat=${DIR}/../gwas_w_bolt_v2_200420/results/gwas_rtrn/rntrn_ilamin.bgen.stats.gz 
 bdir=${DIR}/../../data/subsetBinaryPed
 
 out=$(basename ${sumstat%.bgen.stats.gz})

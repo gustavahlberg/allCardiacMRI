@@ -28,12 +28,14 @@ cd $DIR
 Rscript selectControlGroup.R
 
 
+
 # -----------------------------------------------------------
 #
 # 3. reformat files for cojo
 #
 
 . reFormatSumstats.sh
+
 
 
 

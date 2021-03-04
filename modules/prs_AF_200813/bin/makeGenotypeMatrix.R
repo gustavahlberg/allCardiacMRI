@@ -4,6 +4,11 @@
 #
 # ----------------------------------
 
+## sumstat = read.table("/home/projects/cu_10039/people/stafre/PRS_SCT/data/sumstats/sumstats.tsv",
+##                      stringsAsFactors = F,
+##                      header = T) %>% rename(chr = CHR,
+##            pos = POS)
+
 
 sumstat = read.table("data/AF_GWAS_ALLv31_maf0.01.txt.gz",
                      stringsAsFactors = F,
@@ -13,6 +18,10 @@ sumstat = read.table("data/AF_GWAS_ALLv31_maf0.01.txt.gz",
 sumstat = sumstat[sumstat$P.value < 0.05,]
 sumstatList = split(sumstat, sumstat$chr)
 
+# do not use hapmap snps
+# info <- readRDS(url("https://github.com/privefl/bigsnpr/raw/master/data-raw/hm3_variants.rds"))
+# str(info)
+# infoList = split(info, info$chr)
 
 # ----------------------------------
 #
@@ -31,7 +40,7 @@ list_snp_id <- foreach(chr = 1:22) %dopar% {
 
     
     cat("Processing chromosome", chr, "..\n")
-    mfi <- paste0(ukbPath,"ukb_mfi_chr", chr, "_v3.txt")
+    mfi <- paste0(ukbPath, "ukb_mfi_chr", chr, "_v3.txt")
     infos_chr <- bigreadr::fread2(mfi, showProgress = FALSE)
 
     infos_chr_sub <- infos_chr[infos_chr$V3 %in% sumstatList[[chr]]$pos,]  ## MAF > 1%
@@ -48,7 +57,7 @@ sum(lengths(list_snp_id))
 #
 
 colnames(sumstat) =  c("rsid", "a0", "a1", "chr", "pos", "beta", "StdErr", "p")
-map = do.call(rbind,strsplit(unlist(list_snp_id),"_"))
+map = do.call(rbind, strsplit(unlist(list_snp_id),"_"))
 colnames(map) <- c("chr", "pos", "a0", "a1")
 map <- as.data.frame(map)
 map$chr <- as.integer(map$chr); map$pos <- as.integer(map$pos)

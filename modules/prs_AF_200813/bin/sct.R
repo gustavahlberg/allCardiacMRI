@@ -67,7 +67,6 @@ phenoTabGwas$AF <- df[ind.test,]$AF
 ##     ncores = 12
 ## ) 
 
-
 ## save(all_keep,file = "data/all_keep.rda")
 
 # ---------------------------------
