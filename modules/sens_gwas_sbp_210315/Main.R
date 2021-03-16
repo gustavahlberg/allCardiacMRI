@@ -49,6 +49,14 @@ allTab$Valve <- ifelse(rowSums(Valvepheno[,-1]) > 0, 1,0)
 
 # ---------------------------------------------
 #
+# rank transform w/ sbp covariate
+#
+
+
+source("bin/rankTransform.R")
+
+# ---------------------------------------------
+#
 # print
 #
 
@@ -56,6 +64,7 @@ write.table(x = allTab,
             file = out.fn,
             col.names = T,
             row.names = F,
+            sep = "\t",
             quote = F)
 
 
