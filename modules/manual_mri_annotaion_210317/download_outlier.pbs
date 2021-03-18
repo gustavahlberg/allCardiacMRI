@@ -1,0 +1,19 @@
+#!/bin/bash 
+#PBS group_list=cu_10039 -A cu_10039
+#PBS -m n
+#PBS -l nodes=1:ppn=2,mem=8gb,walltime=80000
+#PBS -N download_mri_outlier
+#PBS -o $PBS_JOBNAME.$PBS_JOBID.out
+#PBS -o $PBS_JOBNAME.$PBS_JOBID.err
+cd $PBS_O_WORKDIR
+
+
+
+
+# source activate cardiacMRI
+python download_data_ukbb_general.py \
+    --data_root data/outlier \
+    --util_dir /home/projects/cu_10039/projects/ManageUkbb/bin/ \
+    --ukbkey /home/projects/cu_10039/projects/cardiacMRI/.ukbkey \
+    --csv_file data/outlier/outlier.bulk
+

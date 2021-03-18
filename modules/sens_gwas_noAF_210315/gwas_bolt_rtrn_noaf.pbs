@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS group_list=cu_10039 -A cu_10039
+#PBS -m n 
+#PBS -l nodes=1:ppn=10,mem=16gb,walltime=252000
+#PBS -N bolt
+cd $PBS_O_WORKDIR
+
+
+
+arr=(rntrn_latef rntrn_lapef rntrn_laaef rntrn_ilamax rntrn_ilamin)
+#N=${arr[${MOAB_JOBARRAYINDEX}]}
+N=${arr[${PBS_ARRAYID}]}
+
+
+#bash gwas_bolt_rtrn_noaf.sh $N
+bash gwas_bolt_rtrn_noValve.sh $N
+
+
+
+
