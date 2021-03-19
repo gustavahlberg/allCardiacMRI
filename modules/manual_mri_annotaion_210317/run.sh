@@ -46,3 +46,50 @@ python download_data_ukbb_general.py \
 
 qsub download_included.pbs
 qsub download_outlier.pbs
+
+
+# -----------------------------------------------------------
+#
+# sort
+#
+
+
+
+arr=(`find ${DIR}/included/ -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | tr "\n" " "`)
+ 
+
+for sample in ${arr[@]:0:40}
+do
+    echo copy sample $sample
+    
+    mkdir -p ${DIR}/send2Lit/${sample}
+    cp ${DIR}/included/${sample}/dicom/manifest* ${DIR}/send2Lit/${sample}/.
+    cp -r ${DIR}/included/${sample}/dicom/CINE_segmented_LAX_2Ch ${DIR}/send2Lit/${sample}/.
+    cp -r ${DIR}/included/${sample}/dicom/CINE_segmented_LAX_4Ch ${DIR}/send2Lit/${sample}/.
+
+    lt ${DIR}/send2Lit/${sample}
+done
+
+#outliers
+arr=(`find ${DIR}/outlier/ -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | tr "\n" " "`)
+
+
+for sample in ${arr[@]:0:40}
+do
+    echo copy sample $sample
+    
+    mkdir -p ${DIR}/send2Lit/${sample}
+    cp ${DIR}/outlier/${sample}/dicom/manifest* ${DIR}/send2Lit/${sample}/.
+    cp -r ${DIR}/outlier/${sample}/dicom/CINE_segmented_LAX_2Ch ${DIR}/send2Lit/${sample}/.
+    cp -r ${DIR}/outlier/${sample}/dicom/CINE_segmented_LAX_4Ch ${DIR}/send2Lit/${sample}/.
+
+    lt ${DIR}/send2Lit/${sample}
+done
+
+
+
+
+
+#################################################
+# EOF # EOF # EOF # EOF # EOF # EOF # EOF # EOF #
+#################################################
