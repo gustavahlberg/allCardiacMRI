@@ -37,4 +37,62 @@ gwas_bolt_rtrn_noaf.pbs
 
 
 
+# ----------------------------------------------------
+#
+# run bolt
+#
+
+
+
+qsub -t 0-4 gwas_bolt_rtrn_testCovar.pbs
+
+
+
+
+# ----------------------------------------------------
+#
+# clumping
+#
+
+
+bash ${DIR}/clump_noaf.sh
+bash ${DIR}/clump_novalve.sh
+
+
+
+# ----------------------------------------------------
+#
+# get lead SNPs  
+#
+
+
+
+bash ${DIR}/getLeadSNPs_noaf.sh
+bash ${DIR}/getLeadSNPs_noValve.sh
+bash ${DIR}/getLeadSNPs_testCovar.sh
+
+
+
+# ----------------------------------------------------
+#
+# get all nominal sign SNPs in reported locus
+#
+
+
+
+bash ${DIR}/getnominalSignSnps.sh
+
+
+# ----------------------------------------------------
+#
+# get data points
+#
+
+
+
+Rscript ${DIR}/corNominalSignSnps.R
+
+
+
+
 #################################################

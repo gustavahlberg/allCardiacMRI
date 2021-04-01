@@ -19,6 +19,9 @@ data/*
 **/header
 **/results/*
 **/rsidIncl
+**/glist-hg19
+**/tmp*
+**/#*
 modules/gwas_w_bolt_v2_200420/bolt.in_plink_but_not_imputed.FID_IID.452433.txt
 modules/flashpca_200419/genPCA/
 doc/manuscript/
