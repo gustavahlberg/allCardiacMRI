@@ -1,4 +1,5 @@
-
+library(xlsx)
+library("irr")
 
 
 samplekey <- read.table("sample_key.txt",
@@ -8,6 +9,7 @@ outliers <- read.table("data/outlier/outlier.bulk")
 samplekey$included <- 1
 
 samplekey$included[as.character(samplekey$sample.id) %in% as.character(outliers$V1)] <- 0
+samplekey$mri.id <- gsub("\\s+", "", samplekey$mri.id)
 
 tab1 <- read.table("../../../cardiacMRI/modules/analyseImages_191107/results/table_atrial_volume_all.csv", header = T, sep = ",")
 
@@ -19,17 +21,20 @@ tab <-tab[!duplicated(tab$X),]
 rownames(tab) <- tab$X
 
 
-pre <- c("3N CS HN ZK", "ZQ FU 3H EP", "UB XU 9H 6T", "3E 7P X6 YZ",
-         "XU 67 NK 7T", "KK 6B 6P 8D", "SA MX SC ZY", "7Z A9 5M PQ",
-         "3T 7Z BQ J6", "UZ 9T J6 33", "P2 9S A8 KD")
+res <- read.xlsx("Inter.xlsx", sheetIndex = 1)
+res$ID <- gsub("\\s+", "", res$ID)
+
+
 
 
 
 sum(samplekey$mri.id %in% pre)
 
 
-samplesPre <- samplekey[samplekey$mri.id %in% pre,]
+samplesPre <- samplekey[samplekey$mri.id %in% res$ID, ]
 
-ids <- samplekey$sample.id[samplekey$mri.id %in% pre ]
+tabsub <- cbind(samplesPre, tab[as.character(samplesPre$sample.id),
+                                c("LAV.min..mL.", "LAV.max..mL.")])
 
-cbind(samplesPre, tab[as.character(ids), c("LAV.min..mL.", "LAV.max..mL.")])
+
+merge(res, tabsub, by.x = "ID", by.y = "mri.id")

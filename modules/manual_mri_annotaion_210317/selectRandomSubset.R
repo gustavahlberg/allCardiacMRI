@@ -2,6 +2,7 @@
 #
 # select random subset n=200
 # select random subset outliers 
+#
 # ----------------------------------------------------
 
 
@@ -12,6 +13,7 @@ samplelist_fn <- "../../data/sampleList.all.etn_200506.tsv"
 primTabAtria_fn <- "/home/projects/cu_10039/projects/cardiacMRI/modules/extrct_atrialVol_200106/results/table_atrial_annotations_all.csv"
 
 repTabAtria_fn <- "/home/projects/cu_10039/projects/repCardiacMRI/modules/extrct_atrialVol_200225/results/rep_table_atrial_annotations_all.csv"
+
 
 
 # load
@@ -32,15 +34,41 @@ tab_atria <- rbind(primTabAtria, repTabAtria)
 
 # ----------------------------------------------------
 #
+# 
+# 
+
+
+library(xlsx)
+inter <- read.xlsx("Inter.xlsx",
+                   sheetIndex = T)
+
+
+sum(is.na(pheno$rntrn_lamax))
+sum(is.na(pheno$lamax))
+
+idxPhenoExl <- which(is.na(pheno$rntrn_lamax) & !is.na(pheno$lamax))
+samplesPhenoExl <- rownames(pheno)[idxPhenoExl]
+
+
+outlier <- read.table("data/outlier/outlier.bulk", header = F)
+
+
+rangeLamax <- range(pheno$lamax, na.rm = T)
+rangeLamin <- range(pheno$lamin, na.rm = T)
+
+range(tab_atria[as.character(outlier$V1), ]$lamax)
+range(tab_atria[as.character(outlier$V1), ]$lamin)
+
+
+
+# ----------------------------------------------------
+#
 # select random subset of included
 # 
 
 
-samplesInluded <- samplelist[!samplelist %in% samples2exclude]
-
-
-randIncluded <- sample(samplesInluded, size = 200, replace = T)
-
+#samplesInluded <- samplelist[!samplelist %in% samples2exclude]
+#randIncluded <- sample(samplesInluded, size = 200, replace = F)
 
 
 
@@ -57,11 +85,20 @@ phenoOutlier <- pheno[mriFiltered, ]
 length(phenoOutlier$IID[is.na(phenoOutlier$lamax)])
 
 
-samplesOutlier <- phenoOutlier$IID[is.na(phenoOutlier$lamax)]
+samplesOutlier <- as.character(phenoOutlier$IID[is.na(phenoOutlier$lamax)])
+
+tabOutlier <- tab_atria[samplesOutlier, ]
+
+range(tabOutlier$lamax)
+range(tabOutlier$lamin)
 
 
 
-randOutlier <- sample(samplesOutlier, size = 200, replace = T)
+
+tabLaminLamaxOutlier <- tabOutlier[(tabOutlier$lamax < rangeLamax[1] | tabOutlier$lamax > rangeLamax[2] | tabOutlier$lamin < rangeLamin[1] | tabOutlier$lamin > rangeLamin[2]), ]
+
+
+randOutlier <- sample(tabLaminLamaxOutlier$sample.id, size = 200, replace = F)
 
 
 
@@ -79,7 +116,7 @@ write.table(x = randIncluded,
 
 
 write.table(x = randOutlier,
-            file = "data/outlier/outlier.bulk",
+            file = "data/outlier2/outlier.bulk",
             col.names = F,
             row.names = F,
             quote = F)

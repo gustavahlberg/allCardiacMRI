@@ -9,6 +9,10 @@
 
 library(gsmr)
 
+phenotab <- read.table("../../data/ukbCMR.all.boltlmm_210316.sample",
+                      header = T)
+
+
 sampleSize <- data.frame(noAf = 34945,
                          noValve = 35556,
                          sbp = 35567,
@@ -71,6 +75,14 @@ defloci$PvalNoAF <- NA
 defloci$PvalNoValve <- NA
 defloci$PvalAdjSBP <- NA
 
+defloci$BetaNoAF <- NA
+defloci$BetaNoValve <- NA
+defloci$BetaAdjSBP <- NA
+
+defloci$SeNoAF <- NA
+defloci$SeNoValve <- NA
+defloci$SeAdjSBP <- NA
+
 
 defloci$corBetasNoAF <- NA
 defloci$corBetasNoValve <- NA
@@ -118,6 +130,7 @@ for (pheno in names(repList)) {
     repList[[pheno]]$sestd <- res_std$se
 
 }
+
 
 
 
@@ -194,6 +207,14 @@ for (i in 1:length(repList)) {
         locus$corChiAdjSBP <- cor(z_locus$CHISQ_BOLT_LMM, repLocus$CHISQ_BOLT_LMM)
         locus$corBetasAdjSBP <- cor(z_locus$bstd, repLocus$bstd)
 
+        locus$BetaNoAF <- x_locus[locus$sentinel_rsid, ]$bstd
+        locus$BetaNoValve <- y_locus[locus$sentinel_rsid, ]$bstd
+        locus$BetaAdjSBP <- z_locus[locus$sentinel_rsid, ]$bstd
+        
+        locus$SeNoAF <- x_locus[locus$sentinel_rsid, ]$sestd
+        locus$SeNoValve <- y_locus[locus$sentinel_rsid, ]$sestd
+        locus$SeAdjSBP <- y_locus[locus$sentinel_rsid, ]$sestd
+
 
 
         defloci[defloci$Pheno == paste0("rntrn_", pheno) &
@@ -204,14 +225,99 @@ for (i in 1:length(repList)) {
 
 
 
+# -----------------------------------------
+#
+# convert betas from standard deviation
+#
+
+
+phenos <- c("ilamax", "ilamin", "laaef", "lapef", "latef")
+#pheno <- "ilamax"
+
+# no af
+idxSamples <- which(!is.na(phenotab$rntrn_ilamin) &
+                   phenotab$af == 0)
+
+for(pheno in phenos) {
+    print(pheno)
+    sdpheno <- sd(phenotab[idxSamples, pheno])
+
+    defloci[defloci$Pheno == paste0("rntrn_", pheno),]$BetaNoAF <- signif(sdpheno*as.numeric(defloci[defloci$Pheno == paste0("rntrn_", pheno),]$BetaNoAF), digits = 3)
+
+    defloci[defloci$Pheno == paste0("rntrn_", pheno),]$SeNoAF <- signif(sdpheno*as.numeric(defloci[defloci$Pheno == paste0("rntrn_", pheno),]$SeNoAF), digits = 3)
+}
+
+
+# no valve
+idxSamples <- which(!is.na(phenotab$rntrn_ilamin) &
+                    phenotab$Valve == 0)
+
+for(pheno in phenos) {
+    print(pheno)
+    sdpheno <- sd(phenotab[idxSamples, pheno])
+
+    defloci[defloci$Pheno == paste0("rntrn_", pheno), ]$BetaNoValve <- signif(sdpheno*as.numeric(defloci[defloci$Pheno == paste0("rntrn_", pheno), ]$BetaNoValve), digits = 3)
+
+    defloci[defloci$Pheno == paste0("rntrn_", pheno), ]$SeNoValve <- signif(sdpheno*as.numeric(defloci[defloci$Pheno == paste0("rntrn_", pheno), ]$SeNoValve), digits = 3)
+}
+
+
+# no valve
+idxSamples <- which(!is.na(phenotab$rntrn_ilamin) &
+                    phenotab$Valve == 0)
+
+for(pheno in phenos) {
+    print(pheno)
+    sdpheno <- sd(phenotab[idxSamples, pheno])
+
+    defloci[defloci$Pheno == paste0("rntrn_", pheno), ]$BetaNoValve <- signif(sdpheno*as.numeric(defloci[defloci$Pheno == paste0("rntrn_", pheno), ]$BetaNoValve), digits = 3)
+
+    defloci[defloci$Pheno == paste0("rntrn_", pheno), ]$SeNoValve <- signif(sdpheno*as.numeric(defloci[defloci$Pheno == paste0("rntrn_", pheno), ]$SeNoValve), digits = 3)
+}
+
+
+
+# sbp adj.
+idxSamples <- which(!is.na(phenotab$rntrn_bp10Hgilamin))
+
+
+for(pheno in phenos) {
+    print(pheno)
+    sdpheno <- sd(phenotab[idxSamples, pheno])
+
+    defloci[defloci$Pheno == paste0("rntrn_", pheno), ]$BetaAdjSBP <- signif(sdpheno*as.numeric(defloci[defloci$Pheno == paste0("rntrn_", pheno), ]$BetaAdjSBP), digits = 3)
+
+    defloci[defloci$Pheno == paste0("rntrn_", pheno), ]$SeAdjSBP <- signif(sdpheno*as.numeric(defloci[defloci$Pheno == paste0("rntrn_", pheno), ]$SeAdjSBP), digits = 3)
+
+}
+
+
+
+
+
+# ----------------------------------------------------
+#
+# Order and round
+#
+
+
+defloci <- defloci[order(defloci$Pheno, defloci$chr, defloci$bp), ]
+
+
+defloci[, grep("cor", colnames(defloci))] <- signif(defloci[, grep("cor", colnames(defloci))], digits = 3)
+
+
+
 # ----------------------------------------------------
 #
 # Save results
 #
 
 
+d <- format(Sys.time(), "%y%m%y")
+
 write.table(x = defloci,
-            file = "definedLocus_w_sensAnalyses_210331.tsv",
+            file = paste0("definedLocus_w_sensAnalyses_", d, ".tsv"),
             col.names = T,
             row.names = T,
             quote = T

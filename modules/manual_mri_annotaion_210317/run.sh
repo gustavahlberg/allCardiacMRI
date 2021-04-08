@@ -12,6 +12,8 @@
 # configs
 #
 
+
+cd data
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
@@ -46,6 +48,7 @@ python download_data_ukbb_general.py \
 
 qsub download_included.pbs
 qsub download_outlier.pbs
+qsub download_outlier2.pbs
 
 
 # -----------------------------------------------------------
@@ -87,6 +90,44 @@ do
 done
 
 
+#outliers2
+arr=(`find ${DIR}/outlier2/ -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | tr "\n" " "`)
+for sample in ${arr[@]:0:50}
+do
+    echo copy sample $sample
+    
+    mkdir -p ${DIR}/send2Lit_2/${sample}
+    cp ${DIR}/outlier2/${sample}/dicom/manifest* ${DIR}/send2Lit_2/${sample}/.
+    cp -r ${DIR}/outlier2/${sample}/dicom/CINE_segmented_LAX_2Ch ${DIR}/send2Lit_2/${sample}/.
+    cp -r ${DIR}/outlier2/${sample}/dicom/CINE_segmented_LAX_4Ch ${DIR}/send2Lit_2/${sample}/.
+
+    lt ${DIR}/send2Lit_2/${sample}
+done
+
+
+#included 2
+arr=(`find ${DIR}/included/ -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | tr "\n" " "`)
+
+for sample in ${arr[@]:0:50}
+do
+    echo copy sample $sample
+    
+    mkdir -p ${DIR}/send2Lit_2/${sample}
+    cp ${DIR}/included/${sample}/dicom/manifest* ${DIR}/send2Lit_2/${sample}/.
+    cp -r ${DIR}/included/${sample}/dicom/CINE_segmented_LAX_2Ch ${DIR}/send2Lit_2/${sample}/.
+    cp -r ${DIR}/included/${sample}/dicom/CINE_segmented_LAX_4Ch ${DIR}/send2Lit_2/${sample}/.
+
+    lt ${DIR}/send2Lit_2/${sample}
+done
+
+
+
+# -----------------------------------------------------------
+#
+# rm already annotated
+#
+
+Rscript rmAlreadyAnnotated.R
 
 
 # -----------------------------------------------------------
@@ -96,6 +137,8 @@ done
 
 
 bash ${DIR}/checkRes.sh
+
+
 
 
 #################################################
