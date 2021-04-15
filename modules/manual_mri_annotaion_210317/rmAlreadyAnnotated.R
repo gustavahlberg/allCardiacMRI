@@ -22,6 +22,29 @@ for (sampleMove in samples2move) {
 
 
 
+
+# scramble and print
+samples2do <- sample(samplekey$mri.id[samplekey$sample.id %in% samples2move], replace = F)
+
+
+write.xlsx(file = "samples2do.xlsx",
+           x = samples2do,
+           sheetName = "samples2do")
+
+
+
+
+
+
+
+
+
+
+
+
+#########################################
+
+
 outliers <- read.table("data/outlier/outlier.bulk")
 samplekey$included <- 1
 
