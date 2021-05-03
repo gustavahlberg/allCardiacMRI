@@ -44,6 +44,21 @@ source("bin/defPhenos.R")
 source("bin/baselineTab.R")
 
 
+# ---------------------------------------------
+#
+# Plot new PC's
+#
+
+source("bin/plotPCs.R")
+
+
+# ---------------------------------------------
+#
+# Plot histograms
+#
+
+source("bin/plotHistograms.R")
+
 
 # ---------------------------------------------
 #

@@ -1,3 +1,4 @@
+modules/manual_mri_annotaion_210317/send2Lit/
 ukbb_cardiac/*
 data/*
 **/*.snplist
@@ -5,6 +6,7 @@ data/*
 **/*~
 **/*zip
 **/*.tiff
+**/*.rda
 **/*gz
 **/*err
 **/*.bim

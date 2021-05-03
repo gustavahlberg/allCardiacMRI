@@ -11,7 +11,6 @@ repTab.fn = "../../../repCardiacMRI/data/ukbCMR.rep.boltlmm_200509.sample"
 samples2excludeAll = as.character(read.table("../../data/sample2exclude.all.snpTest_200506.list")$V1)
 
 
-
 allTab = read.table(allTab.fn,
                     stringsAsFactors = F,
                     header = T)

@@ -21,10 +21,14 @@ for (pheno in phenos) {
                    pheno,
                    "_ALL.clumped")
 
-    gwas.fn <- paste0("../gwas_w_bolt_v2_200420/results/gwas_rtrn/rntrn_",
-                      pheno, 
-                    ".bgen.stats.betastd.tsv.gz")
+    # gwas.fn <- paste0("../gwas_w_bolt_v2_200420/results/gwas_rtrn/rntrn_",
+    #                   pheno, 
+    #                 ".bgen.stats.betastd.tsv.gz")
 
+  gwas.fn <- paste0("/Users/gustavahlberg/Projects/allCardiacMRI/data/gwas_rtrn/rntrn_",
+                    pheno,
+                  ".bgen.stats.betastd.tsv.gz")
+  
   gwas <- fread(gwas.fn, stringsAsFactors = F, header = T)
   gwas <- data.frame(gwas, stringsAsFactors = F)
 

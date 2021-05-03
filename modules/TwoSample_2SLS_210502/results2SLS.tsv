@@ -1,0 +1,21 @@
+Beta SE P OR
+ilamax AF 0.26 0.19 0.15 1.3
+ilamax HF -0.56 0.26 0.034 0.57
+ilamax Stroke -0.17 0.26 0.51 0.84
+ilamax isch. Stroke 0.044 0.29 0.88 1
+ilamin AF 0.27 0.15 0.067 1.3
+ilamin HF 0.087 0.21 0.68 1.1
+ilamin Stroke 0.056 0.2 0.78 1.1
+ilamin isch. Stroke 0.03 0.23 0.9 1
+laaef AF -0.37 0.099 2e-04 0.69
+laaef HF -0.16 0.14 0.26 0.85
+laaef Stroke 0.14 0.14 0.32 1.1
+laaef isch. Stroke 0.17 0.15 0.28 1.2
+lapef AF -0.84 0.17 1e-06 0.43
+lapef HF -0.34 0.24 0.17 0.72
+lapef Stroke -0.2 0.24 0.41 0.82
+lapef isch. Stroke -0.11 0.27 0.68 0.9
+latef AF -0.89 0.11 1e-15 0.41
+latef HF -0.37 0.16 0.019 0.69
+latef Stroke -0.064 0.15 0.67 0.94
+latef isch. Stroke -0.036 0.17 0.83 0.96
