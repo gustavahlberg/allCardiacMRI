@@ -5,7 +5,9 @@
 # ----------------------------------
 
 library(rethinking)
-load("data/sampleData.rda", verbose = T)
+load("../prs_ct_bayes_200724/data/sampleData.rda", verbose = T)
+
+#load("data/sampleData.rda", verbose = T)
 #load("data/list_snp_id.rda", verbose = TRUE)
 load("data/samplesOrdered.rda", verbose = TRUE)
 load("data/dfAF.rda", verbose = TRUE)

@@ -10,13 +10,14 @@
 
 library(parallel)
 load("../prs_ct_bayes_200724/data/sampleData.rda", verbose = T)
-load("data/list_snp_id.rda", verbose = TRUE)
+#load("data/list_snp_id.rda", verbose = TRUE)
 load("data/samplesOrdered.rda", verbose = TRUE)
 load("data/dfAF.rda", verbose = TRUE)
 load("data/all_keep.rda", verbose = TRUE)
 
 matdata = "data/afCohort.rds"
-phenoTabIncl = phenoTab[ind.indiv,]
+
+phenoTabIncl = phenoTab[ind.indiv, ]
  
 ukbb <- snp_attach(matdata)
 G <- ukbb$genotypes
@@ -105,6 +106,7 @@ save(pred, predCovar, file = "results/predictions_200825.rda")
 ###########################################
 # EOF # EOF # EOF # EOF # EOF # EOF # EOF #
 ###########################################
+
 
 load("results/stackedFinalMod_covar.rda", verbose = TRUE)
 load("results/stackedFinalMod.rda", verbose = TRUE)
