@@ -1,0 +1,10 @@
+#!/bin/bash
+#PBS group_list=cu_10039 -A cu_10039
+#PBS -m n 
+#PBS -l nodes=1:ppn=8,mem=64gb,walltime=36000
+#PBS -N varSelect
+cd $PBS_O_WORKDIR
+
+
+Rscript bin/varSelectPbs.R ${PBS_ARRAYID}
+

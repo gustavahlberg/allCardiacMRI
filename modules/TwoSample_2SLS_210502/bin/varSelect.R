@@ -7,6 +7,19 @@
 # data
 #
 
+
+phenoTab <- read.table("../../data/ukbCMR.all.boltlmm_200506.sample",
+                      stringsAsFactors = F,
+                      header = T)
+
+
+load(file = "dataFrame_210503.rda")
+
+
+testSet <- rownames(df[!df$sample.id %in% phenoTab$IID, ])
+trainingSet <- rownames(df[(df$sample.id %in% phenoTab$IID ), ])
+
+
 library(rstanarm)
 options(mc.cores = parallel::detectCores())
 library(loo)
@@ -36,8 +49,11 @@ dfVar <- data.frame(ilamax = df[trainingSet,]$ilamax,
 
 dfVar <- dfVar[-which(is.na(dfVar$sbp)),]
 
-idx <- sample(x = 1:nrow(dfVar), size = 4000, replace = F) 
+idx <- sample(x = 1:nrow(dfVar), size = 6000, replace = F) 
 dfVarSample <- dfVar[idx,]
+
+
+#save(dfVarSample, dfVar, file = "dfVar.rda")
 
 #any(is.na(dfVar))
 #summary(dfVar)
@@ -60,18 +76,21 @@ dfVarSample <- dfVar[idx,]
 #
 # fitg <- stan_glm(y ~ x1 + x2 + x3 + x4, data = df, na.action = na.fail, family=poisson(), QR=TRUE, seed=SEED)
 
-phenos <- c("ilamax", "ilamin", "laaef", "lapef","latef")
+phenos <- c("ilamax", "ilamin", "laaef", "lapef", "latef")
 
-for(pheno in phenos)
+for(pheno in phenos) {
 
-y <- dfVarSample[, pheno]
+    # 1
+    pheno <- phenos[1]
+    y <- dfVarSample[, pheno]
 
-fitg <- stan_glm(pheno ~ age + sex + af + t2d + bmi + height + sbp + hr , 
-                 data = dfVarSample, 
-                 na.action = na.fail, 
-                 family = gaussian(), 
-                 QR=TRUE, 
-                 seed=SEED)
+    fitg <- stan_glm(y ~ age + sex + af + t2d + bmi + height + sbp + hr,
+                     data = dfVarSample, 
+                     na.action = na.fail, 
+                     family = gaussian(), 
+                     QR=TRUE,
+                     iter = 4000,
+                     seed=SEED)
 
 
 
@@ -87,12 +106,12 @@ fitg <- stan_glm(pheno ~ age + sex + af + t2d + bmi + height + sbp + hr ,
 # is used to choose the model size.
 #
 
-ref <- get_refmodel(fitg)
-fitg_cv <- cv_varsel(ref, method='forward', cv_method='LOO')
+    ref <- get_refmodel(fitg)
+    fitg_cv <- cv_varsel(ref, method='forward', cv_method='LOO')
 
 
-models.fn = paste0("fit_", pheno, ".rda")
-save(fitg_cv, fitg, save = models.fn)
+    models.fn = paste0("fit_", pheno, ".rda")
+    save(fitg_cv, fitg, save = models.fn)
 
 
 
