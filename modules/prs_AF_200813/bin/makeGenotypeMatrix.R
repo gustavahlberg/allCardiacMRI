@@ -116,18 +116,18 @@ save(idx_indiv, samplesOrdered, file = "data/samplesOrdered.rda")
 #
 # -------------------------------
 
-## backingfile = paste0("data/afCohort")
+backingfile = paste0("data/afCohort")
 
-## system.time(
-##     rds <- bigsnpr::snp_readBGEN(
-##                         bgenfiles = glue::glue("/home/projects/cu_10039/data/UKBB/downloadDump/EGAD00010001474/ukb_imp_chr{chr}_v3.bgen", chr = 1:22),
-##                         list_snp_id = list_snp_id2,
-##                         backingfile = backingfile,
-##                         ind_row = idx_indiv,
-##                         bgi_dir = "/home/projects/cu_10039/data/UKBB/downloadDump/EGAD00010001474/",
-##                         ncores = 10
-##                     )
-## ) 
+system.time(
+    rds <- bigsnpr::snp_readBGEN(
+                        bgenfiles = glue::glue("/home/projects/cu_10039/data/UKBB/downloadDump/EGAD00010001474/ukb_imp_chr{chr}_v3.bgen", chr = 1:22),
+                        list_snp_id = list_snp_id2,
+                        backingfile = backingfile,
+                        ind_row = idx_indiv,
+                        bgi_dir = "/home/projects/cu_10039/data/UKBB/downloadDump/EGAD00010001474/",
+                        ncores = 10
+                    )
+) 
 
 
 #################################################

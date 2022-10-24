@@ -15,7 +15,7 @@ module load qctool/2.0.1
 module load bolt-lmm/2.3.4 
 
 
-bgen=${DIR}/../../data/subsetFinal/subsetFinal_ukb_imp_chr{1:22}_v3.bgen
+#bgen=${DIR}/../../data/subsetFinal/subsetFinal_ukb_imp_chr{1:22}_v3.bgen
 sampleFn=${DIR}/../../data/ukbCMR.all.snpTest_200506.sample
 exclude=${DIR}/../../data/sample2exclude.all.snpTest_200506.list
 phenoFn=${DIR}/../../data/ukbCMR.all.boltlmm_200506.sample

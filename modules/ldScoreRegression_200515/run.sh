@@ -9,8 +9,10 @@
 
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-wget https://data.broadinstitute.org/alkesgroup/LDSCORE/eur_w_ld_chr.tar.bz2
-wget https://data.broadinstitute.org/alkesgroup/LDSCORE/w_hm3.snplist.bz2
+
+wget --no-check-certificate https://data.broadinstitute.org/alkesgroup/LDSCORE/eur_w_ld_chr.tar.bz2
+
+wget --no-check-certificate https://data.broadinstitute.org/alkesgroup/LDSCORE/w_hm3.snplist.bz2
 
 tar -jxvf eur_w_ld_chr.tar.bz2
 bunzip2 w_hm3.snplist.bz2 

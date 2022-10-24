@@ -13,12 +13,12 @@ library(loo)
 library(projpred)
 library(bayesplot)
 
-SEED = 87
+SEED <- 87
 
 set.seed(SEED)
 
 
-load("dfVar.rda")
+load("dfVar.rda", verbose = T)
 
 # ---------------------------------------------
 #
@@ -45,16 +45,16 @@ phenos <- c("ilamax", "ilamin", "laaef", "lapef", "latef")
 
 
 # 1
-pheno <- phenos[1]
+pheno <- phenos[i]
 y <- dfVarSample[, pheno]
 
 fitg <- stan_glm(y ~ age + sex + af + t2d + bmi + height + sbp + hr,
                  data = dfVarSample, 
                  na.action = na.fail, 
                  family = gaussian(), 
-                 QR=TRUE,
-                 iter = 4000,
-                 seed=SEED)
+                 QR = TRUE,
+                 iter = 10000,
+                 seed = SEED)
 
 
 
@@ -70,11 +70,39 @@ fitg <- stan_glm(y ~ age + sex + af + t2d + bmi + height + sbp + hr,
 # is used to choose the model size.
 #
 
+# For a simple linear model (without multilevel structure), the fastest method is to use L1–search.
 print("Running cv_varsel:")
 ref <- get_refmodel(fitg)
-fitg_cv <- cv_varsel(ref, method='forward', cv_method='LOO')
+fitg_cv <- cv_varsel(ref, method = 'forward', cv_method = 'LOO', K = NULL)
+
+print("finished cv_varsel")
+(nv_a10 <- suggest_size(fitg_cv, alpha = 0.1))
+(nv_a32 <- suggest_size(fitg_cv, alpha = 0.32))
 
 
-models.fn = paste0("fit_", pheno, ".rda")
-save(fitg_cv, fitg, save = models.fn)
+print("Running project:")
+projg_a10 <- project(fitg_cv, nterms = nv_a10, ndraws = 4000)
+projg_a32 <- project(fitg_cv, nterms = nv_a32, ndraws = 4000)
 
+
+
+models.fn <- paste0("fit_", pheno, ".rda")
+save(fitg_cv, fitg, projg_a32, projg_a10, nv_a10, nv_a32, file = models.fn)
+
+
+
+
+
+
+
+
+#######################################################
+# EOF # EOF # EOF # EOF # EOF # EOF # EOF # EOF # EOF #
+#######################################################
+
+
+load(models.fn, verbose = T)
+round(colMeans(as.matrix(projg_a10)), 4)
+round(posterior_interval(as.matrix(projg_a10)), 4)
+
+#plot(fitg_cv, stats = c('elpd', 'rmse'))

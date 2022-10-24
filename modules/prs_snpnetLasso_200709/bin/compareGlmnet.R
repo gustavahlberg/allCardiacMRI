@@ -94,7 +94,7 @@ cor(testing, phe$ilamax)
 summary(lm(phe$ilamax ~ testing ))
 
 beta = as.matrix(fit_glmnet$beta)
-prs = scale(data.X[,-c(1:12)] %*% beta[-c(1:12)])
+prs = scale(data.X[,-c(1:12)] `%*% beta[-c(1:12)])
 
 summary(lm(phe$ilamax ~ prs ))
 summary(lm(phe$ilamax ~  phe$sex + phe$age + prs ))
