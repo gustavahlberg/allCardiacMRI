@@ -60,7 +60,7 @@ abline(v = -0.5, col = alpha('black', 0.05))
 abline(v = 1, col = alpha('black', 0.05))
 title(xlab=xlab, line = 2.3, adj = 0.7)
 
-
+k = 1
 
 for(k in 1:nrow(table)) {
   j = o[k]

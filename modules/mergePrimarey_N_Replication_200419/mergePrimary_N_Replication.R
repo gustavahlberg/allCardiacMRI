@@ -6,7 +6,8 @@
 # list files
 #
 
-sampleData.fn="/home/projects/cu_10039/data/UKBB/Imputed/ukb43247_imp_chr1_v3_s487320.sample"
+sampleData.fn="~/Projects/allCardiacMRI/modules/TwoSample_2SLS_210502/data/ukb43247_imp_chr1_v3_s487320.sample"
+#sampleData.fn="/home/projects/cu_10039/data/UKBB/Imputed/ukb43247_imp_chr1_v3_s487320.sample"
 
 repDIR = '../../../repCardiacMRI/data/'
 priDIR = '../../../cardiacMRI/data/'
@@ -105,6 +106,27 @@ write.table(subSampleData$ID_1,
             col.names = F,
             row.names = F,
             quote = F)
+
+
+# ----------------------------------------------------------------
+#
+# Tmp lists
+#
+
+repSl$V1[!repSl$V1 %in% repExclude$V1]
+length(priSl$V1[!priSl$V1 %in% priExclude$V1]) + length(repSl$V1[!repSl$V1 %in% repExclude$V1])
+
+
+write.table(file = "primarySamples.txt",
+            x = priSl$V1[!priSl$V1 %in% priExclude$V1],
+            col.names = F,
+            row.names = F)
+
+write.table(file = "repSamples.txt",
+            x = repSl$V1[!repSl$V1 %in% repExclude$V1],
+            col.names = F,
+            row.names = F)
+
 
 
 #######################################################

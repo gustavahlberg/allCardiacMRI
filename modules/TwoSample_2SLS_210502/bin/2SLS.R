@@ -28,7 +28,6 @@ df$lapef <- NA; df$latef <- NA;
 # file data
 #
 
-
 df[trainingSet, ]$laaef <- scale(phenoTab[trainingSet, ]$laaef)
 df[trainingSet, ]$lapef <- scale(phenoTab[trainingSet, ]$lapef)
 df[trainingSet, ]$latef <- scale(phenoTab[trainingSet, ]$latef)
@@ -62,6 +61,24 @@ for(pheno in phenos) {
 
 }
 
+###################################
+############# REmove
+# library("sem")
+# 
+# 
+# df$iv  <- prs[df$sample.id, pheno]
+# 
+# 
+# summary(tsls(AF ~ latef + sex + age + PC1 + PC2 + PC3 + PC4,
+#      ~ iv + sex + age + PC1 + PC2 + PC3 + PC4,
+#      data = df[trainingSet, ]))
+# 
+# summary(glm(stroke ~ iv + sex + age + PC1 + PC2 + PC3 + PC4,
+#     family = binomial(),
+#     data = df[testSet, ]))
+# 
+
+##############################################
 
 # ---------------------------------------------
 #

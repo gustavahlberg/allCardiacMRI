@@ -19,7 +19,7 @@ genCor = list()
 
 for(i in 1:length(files)) {
   
-  #i = 5
+  #i = 1
   file = files[i]
   cmd = paste("head -n +1500", file ,"| grep -in 'Summary of Genetic Correlation Results'")
   sof = system(cmd, intern = T)

@@ -7,6 +7,12 @@
 # make table 
 #
 
+write.table(allTab,
+            file = "tab_laura.tsv",
+            col.names = T,
+            row.names = F,
+            sep = "\t")
+
 allTabIncl = allTab[samples2includeAll,]
 
 

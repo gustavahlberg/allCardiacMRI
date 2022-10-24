@@ -16,47 +16,40 @@ phenoTab <- read.table("../../data/ukbCMR.all.boltlmm_200506.sample",
 load(file = "dataFrame_210503.rda")
 
 
-testSet <- rownames(df[!df$sample.id %in% phenoTab$IID, ])
-trainingSet <- rownames(df[(df$sample.id %in% phenoTab$IID ), ])
+#testSet <- rownames(df[!df$sample.id %in% phenoTab$IID, ])
+sampleSet <- rownames(df[(df$sample.id %in% phenoTab$IID ), ])
 
+rownames(phenoTab) <- as.character(phenoTab$IID)
 
-library(rstanarm)
-options(mc.cores = parallel::detectCores())
-library(loo)
-library(projpred)
-library(bayesplot)
-
-SEED = 87
-
+SEED = 1234
 set.seed(SEED)
+length(sampleSet)
 
-length(trainingSet)
+dfVar <- data.frame(ilamax = df[sampleSet,]$ilamax,
+                    ilamin = df[sampleSet,]$ilamin,
+                    laaef = df[sampleSet,]$laaef,
+                    lapef = df[sampleSet,]$lapef,
+                    latef = df[sampleSet,]$latef,
+                    age = scale(df[sampleSet,]$age),
+                    sex = df[sampleSet,]$sex,
+                    af = df[sampleSet,]$AF,
+                    hf = df[sampleSet,]$hf_cm,
+                    t2d = df[sampleSet,]$T2D,
+                    bmi = scale(df[sampleSet,]$bmi),
+                    height = scale(df[sampleSet,]$height),
+                    sbp = scale(df[sampleSet,]$SBP_adj10mmhg),
+                    hr = scale(df[sampleSet,]$HR))
 
-dfVar <- data.frame(ilamax = df[trainingSet,]$ilamax,
-                    ilamin = df[trainingSet,]$ilamin,
-                    laaef = df[trainingSet,]$laaef,
-                    lapef = df[trainingSet,]$lapef,
-                    latef = df[trainingSet,]$latef,
-                    age = df[trainingSet,]$age,
-                    sex = df[trainingSet,]$sex,
-                    af = df[trainingSet,]$AF,
-                    t2d = df[trainingSet,]$T2D,
-                    bmi = df[trainingSet,]$bmi,
-                    height = df[trainingSet,]$height,
-                    sbp = df[trainingSet,]$SBP_adj10mmhg,
-                    hr = df[trainingSet,]$HR)
-
-
+rownames(dfVar) <- rownames(df[sampleSet,])
 dfVar <- dfVar[-which(is.na(dfVar$sbp)),]
 
-idx <- sample(x = 1:nrow(dfVar), size = 6000, replace = F) 
-dfVarSample <- dfVar[idx,]
+idxTrain <- sample(x = 1:nrow(dfVar), 
+                   size = floor(nrow(dfVar)*0.7), 
+                   replace = F) 
 
+dfVarTrain <- dfVar[idxTrain,]
+dfVarTest <- dfVar[-idxTrain,]
 
-#save(dfVarSample, dfVar, file = "dfVar.rda")
-
-#any(is.na(dfVar))
-#summary(dfVar)
 
 # ---------------------------------------------
 #
@@ -70,6 +63,25 @@ dfVarSample <- dfVar[idx,]
 #                   seed=SEED)
 
 
+
+# ---------------------------------------------
+#
+# skeleton
+#
+
+phenos <- c("ilamax", "ilamin", "laaef", "lapef", "latef")
+res <- matrix(data = NA, nrow = 10, ncol = 10)
+rownames(res) <- c("MSE", "age","sex", "af","hf","t2d","bmi", "height", "sbp","hr")
+
+tmp <- c()
+
+for(i in 1:5){
+  tmp <- c(tmp,paste0(phenos[i], c(" 1se lambda", " min lambda")))
+}
+
+colnames(res) <- tmp
+
+
 # ---------------------------------------------
 #
 # regress
@@ -80,25 +92,51 @@ phenos <- c("ilamax", "ilamin", "laaef", "lapef", "latef")
 
 for(pheno in phenos) {
 
-    # 1
-    pheno <- phenos[1]
-    y <- dfVarSample[, pheno]
+  # 1
+  #pheno <- phenos[3]
 
-    fitg <- stan_glm(y ~ age + sex + af + t2d + bmi + height + sbp + hr,
-                     data = dfVarSample, 
-                     na.action = na.fail, 
-                     family = gaussian(), 
-                     QR=TRUE,
-                     iter = 4000,
-                     seed=SEED)
+  y <- dfVarTrain[, pheno]
+  x <- as.matrix(dfVarTrain[, c("age","sex", "af","hf","t2d","bmi", "height", "sbp","hr")])
+  cvfit <- cv.glmnet(x, y, 
+                     alpha = 1, 
+                     family = "gaussian", 
+                     type.measure = "mse",
+                     standardize = T)
+  
+  png(paste0(pheno,"_glmnet_mse.png"),
+      width=6,height=6,res=300,units="in")
+  
+  plot(cvfit)
+  
+  dev.off()
+  
+  L_se1 <- as.matrix(coef(cvfit, s = "lambda.1se"))
+  L_min <-coef(cvfit, s = "lambda.min")
+  
+  # predict
+  y <- dfVarTest[, pheno]
+  x <- as.matrix(dfVarTest[, c("age","sex", "af","hf","t2d","bmi", "height", "sbp","hr")])
+  yhat1se <- predict(cvfit, newx = x, s = "lambda.1se")
+  yhatmin <- predict(cvfit, newx = x, s = "lambda.min")
+  mse_1se <- sum((y - yhat1se)^2)/length(yhat1se)
+  mse_min <- sum((y - yhatmin)^2)/length(yhatmin)
+
+  paste0(pheno," 1se lambda")
+  res[, paste0(pheno," 1se lambda")] <- signif(c(mse_1se, L_se1[-1,]), digits = 4)
+  res[, paste0(pheno," min lambda")] <- signif(c(mse_min, L_min[-1,]), digits = 4)
+}
 
 
+res[,grep("1se lambda",colnames(res))]
 
-#mcmc_areas(as.matrix(fitg),prob_outer = .99)
-#mcmc_pairs(as.matrix(fitg),pars = c("age","sex","af","bmi"))
+write.table(res,
+            "variableImportance.tsv",
+            col.names = T,
+            row.names = T)
 
-
-
+#################################################
+# EOF # EOF # EOF # EOF # EOF # EOF # EOF # EOF #
+#################################################
 # ---------------------------------------------
 #
 # projective predictive variable selection using the previous full model. 

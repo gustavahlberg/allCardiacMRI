@@ -211,7 +211,7 @@ shade(pred.p.PI, x_seq)
 # -----------------------------------------------------------------
 #
 # Plot model mlog
-#
+# thres : 1,10,20,30
 
 post <- extract.samples(mlog)
 
